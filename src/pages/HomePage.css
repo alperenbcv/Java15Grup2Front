@@ -1,0 +1,15 @@
+.body-right {
+    background: linear-gradient(to bottom, #000, #1f1f3b);
+    color: white;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+}
+
+.hr-image {
+    max-width: 100%;    
+}

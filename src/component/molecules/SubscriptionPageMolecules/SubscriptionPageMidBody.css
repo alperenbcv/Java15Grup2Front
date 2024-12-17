@@ -1,0 +1,121 @@
+.mid-row{
+    display: flex; /* Flexbox kullanımı */
+    justify-content: center; /* Yatayda ortalama */
+    align-items: center; /* Dikeyde ortalama */
+    min-height: 100vh; /* Tüm ekran yüksekliği */
+}
+
+.mid-body-header-1 {
+    text-align: center;
+    font-size: 60px;
+    margin-top: 100px;
+    font-weight: 700;
+}
+
+.mid-body-header-2 {
+    text-align: center;
+    font-size: 60px;
+    font-weight: 700;
+    margin-top: -30px;
+}
+
+.month-col, .annual-col {
+    border: 1px solid white;
+    justify-items: center;
+    width: 400px;
+    padding: 20px; /* İçerik boşluğu */
+    border-radius: 15px; /* Köşeleri yuvarlat */
+    background-color: #111; /* Arka plan rengi (isteğe bağlı) */
+    box-shadow: 0 5px 25px 5px rgba(209, 4, 192, 0.5); /* Hafif gölge */
+    margin-top: -250px;
+}
+
+.month-col:hover, .annual-col:hover{
+    box-shadow: 0 5px 25px 5px rgba(248, 247, 248, 0.5); /* Hafif gölge */
+}
+
+
+.month-header, .annual-header{
+    padding-top: 30px;
+}
+
+.month-price{
+    padding-top: 20px;
+    font-size: 60px;
+    margin-left: 90px
+}
+
+.divide-month{
+    margin-left: 250px;
+    margin-top: -50px;
+}
+
+.month-text, .annual-text{
+    font-size: small;
+    font-weight: 200;
+    color: gray;
+}
+
+.annual-price{
+    padding-top: 20px;
+    font-size: 60px;
+    margin-left:100px
+}
+
+.divide-year{
+    margin-left: 225px;
+    margin-top: -50px;
+}
+
+.annual-save-row{
+    background-color: rgb(66, 65, 65);
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+    height: 25px;
+}
+
+.annual-save{
+    font-size: small;
+    padding-top: 4px;
+    font-weight: 400;
+    color: rgb(30, 32, 32);
+}
+
+.fa-circle-info{
+    margin-left: 87px;
+    margin-top: -23px;
+    color: rgb(43, 44, 44);
+}
+
+.fa-circle-info:hover{
+    cursor: pointer;
+}
+
+
+.month-save-row{
+    background-color: rgb(66, 65, 65);
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+    height: 25px;
+}
+
+.month-save{
+    font-size: small;
+    padding-top: 5px;
+    font-weight: 400;
+    color: rgb(30, 32, 32);
+}
+
+.hr-month-1, .hr-annual-1{
+    color: white;
+    margin-top: 20px;
+}
+
+.spec-row{
+    width: 300px;
+    padding: 5px;
+}
+
+

@@ -1,0 +1,66 @@
+.top-bar-right {
+    display: flex; /* Flex container */
+    justify-content: end;
+    align-items: center; /* Dikey olarak ortala */
+  }
+  
+
+.topbar-resize-btn:hover{
+    color: blueviolet;
+}
+
+.topbar-resize-btn{
+    margin-left: 20px;
+}
+
+.topbar-search-bar{
+    margin-left: -50px;
+    height: 40px;
+}
+
+.topbar-message-btn{
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+}
+
+.topbar-message-btn:hover{
+    color: blueviolet;
+}
+
+.topbar-notification-btn{
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none; 
+}
+
+.topbar-notification-btn:hover{
+    color: blueviolet;
+}
+
+.profile-img-button {
+    position: relative; /* Kapsayıcı konumlandırma */
+    width: 38px;
+    height: 36px;
+    padding: 0; /* Button padding sıfırlandı */
+    border: none;
+    background: transparent; /* Buton arka planı şeffaf */
+    display: flex;
+    justify-content: center; /* Yatay merkezleme */
+    align-items: center; /* Dikey merkezleme */
+    overflow: hidden; /* Taşmaları önler */
+}
+
+.profile-img-topbar {
+    position: absolute; /* Üst üste konumlandırma */
+    top: 0; /* Üstten sıfır */
+    left: 0; /* Soldan sıfır */
+    width: 100%; /* Buton genişliği kadar */
+    height: 100%; /* Buton yüksekliği kadar */
+    border-radius: 50%; /* Yuvarlak kenarlar */
+    object-fit: cover; /* Resmin boyutunu orantılı küçültme */
+}
+
+.profile-img-topbar:hover{
+    cursor: pointer;
+}

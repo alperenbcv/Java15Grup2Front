@@ -1,0 +1,19 @@
+.total-dollar-sign{
+    color: white;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.total-earnings{
+    color: white;
+    text-align: center;
+    margin-top: 25px;
+    font-weight: 900;
+}
+
+.total-earnings-title{
+    color: white;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+}

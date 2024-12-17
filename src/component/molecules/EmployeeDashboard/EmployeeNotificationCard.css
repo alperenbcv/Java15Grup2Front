@@ -1,0 +1,80 @@
+  .notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+  
+  .notification-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .view-all-button {
+    background: none;
+    border: none;
+    color: #9104d3;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .view-all-button:hover {
+    text-decoration: underline;
+  }
+  
+  .notification-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .notification-item {
+    display: flex;
+    align-items: flex-start;
+    margin: 15px 0;
+  }
+  
+  .profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  
+  .notification-details {
+    flex: 1;
+  }
+  
+  .notification-name {
+    font-weight: bold;
+  }
+  
+  .notification-text {
+    color: gray;
+    font-size: 14px;
+  }
+
+  .notification-title{
+    color: gray;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .notification-time {
+    color: #888;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  .notification-row{
+    border-radius: 20px;
+    width: 500px;
+    margin-left: -20px;
+  }
+
+  .notification-row:hover{
+    box-shadow: #9104d3 0px 3px 8px;
+  }
+  
+

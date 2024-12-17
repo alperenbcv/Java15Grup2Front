@@ -1,0 +1,15 @@
+.try-button {
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    border-bottom-right-radius: 40px;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    transition: all 0.3s ease;
+    width: 300px;
+  }
+  
+  .gradient-button:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+    transform: scale(1.05);
+  }

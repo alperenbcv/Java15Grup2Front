@@ -1,0 +1,97 @@
+/* Sayfa Arkaplanı */
+.manager-dashboard-container {
+    background: linear-gradient(to bottom, #000, #1f1f3b);
+    min-height: 100vh; /* Sayfanın tamamını kaplasın */
+    overflow-x: hidden;
+  }
+  
+  /* Sol Side Bar */
+  .manager-side-bar {
+    justify-content: flex-start;
+    border-right: 1px solid white;
+    min-height: 100vh; /* Sidebar tam yükseklikte kalsın */
+  }
+  
+  /* Menü Başlığı */
+  .manager-menu-text {
+    color: white;
+    font-size: small;
+    text-align: center;
+    font-weight: 100;
+  }
+  
+  .manager-dash-hr-1 {
+    color: white;
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  /* Sağ Top Bar */
+  .manager-dashboard-content {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .top-bar-left {
+    display: flex;
+    align-items: center; /* Dikey ortalama */
+  }
+  
+  .topbar-resize-btn {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+  }
+  
+  .manager-dash-hr-2{
+    color: white;
+    margin-top: 20px;
+  }
+
+  .employee-details-chart{
+    border: 1px solid white;
+    max-width: 500px;
+    max-height: 500px;
+    margin-left: 200px;
+    border-radius: 20px;
+    margin-top: 50px;
+  }
+
+  .employee-details-chart:hover{
+    box-shadow: rgba(255, 255, 255, 0.25) 0px 14px 28px, rgba(255, 255, 255, 0.22) 0px 10px 10px;
+    cursor: pointer;
+  }
+
+  .manager-dashboard-header{
+    margin-left: 100px;
+    color: white;
+    font-weight: 800;
+  }
+
+  .employee-leave-chart{
+    border: 1px solid white;
+    max-width: 500px;
+    max-height: 500px;
+    margin-left: 200px;
+    border-radius: 20px;
+    margin-top: 50px;
+  }
+
+  .departmant-chart{
+    border: 1px solid white;
+    max-width: 500px;
+    max-height: 500px;
+    margin-left: 200px;
+    border-radius: 20px;
+    margin-top: 50px;
+  }
+
+  .manager-card-col{
+    border: 1px solid white;
+    max-width: 500px;
+    max-height: 500px;
+    margin-left: 200px;
+    border-radius: 20px;
+    margin-top: 50px;
+  }

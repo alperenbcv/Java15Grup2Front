@@ -1,0 +1,31 @@
+.left-row {
+    display: flex;
+    justify-content: center;
+}
+
+.col-left{
+    padding-top: 150px;
+}
+
+.site-logo {
+    width: 500px;
+    height: 500px;
+    margin-top: -100px;
+}
+.site-name {
+    font-size: 50px;
+    text-align: center;
+    margin-top: -150px;
+    font-weight: bolder;
+}
+
+.hr {
+    all: unset;
+    width: 250px;
+    align-self: center;
+    margin-top: -100px;
+    height: 5px;
+    background-color: black;
+    border: none;
+    box-shadow: 0 0 10px black;
+}

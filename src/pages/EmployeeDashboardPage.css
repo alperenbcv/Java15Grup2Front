@@ -1,0 +1,26 @@
+.team-members-col{
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+    height: 500px;
+    margin-top: 50px;
+    margin-left: 200px;
+}
+
+.employee-not-card{
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+    height: 500px;
+    margin-top: 50px;
+    margin-left: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}

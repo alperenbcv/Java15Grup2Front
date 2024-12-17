@@ -1,0 +1,53 @@
+.top-left-body {
+    justify-items: center;
+}
+.top-left-header {
+    font-weight: 700;
+    font-size: 50px;
+    margin-left: -80px;
+    padding: 25px;
+    margin-top: 25px;
+}
+
+.top-left-text-1 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: 90px;
+    width: 700px;
+}
+
+.top-left-text-2 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: 90px;
+    width: 700px;
+    margin-bottom: 50px;
+}
+
+.top-right-body{
+    justify-items: center;
+    background: linear-gradient(90deg, #00c6ff, #ff0080);
+  padding: 2px;
+  border-radius: 15px; 
+    width: 500px;
+}
+
+.dolar-sign{
+    width: 20px;
+    font-size: xx-large;
+    font-weight: 700;
+    margin-left: -30px;
+    margin-top: 65px;
+}
+.price{
+    width: 50px;
+    font-size: 80px;
+    font-weight: 800;
+}
+
+.top-right-text{
+    font-size:10px;
+    margin-left: 280px;
+    width: 400px;
+    margin-top: 10px;
+}

@@ -1,0 +1,18 @@
+.header-item:hover .sign-in-text{
+color: black !important;
+} 
+
+.header-item:hover .sign-up-text{
+  color: black !important;
+  } 
+
+.header-item:hover .fa-user-check{
+    color: black !important;
+} 
+
+.header-item:hover .fa-user-plus{
+      color: black !important;
+} 
+.dropdown-menu{
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+}

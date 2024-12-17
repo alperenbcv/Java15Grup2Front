@@ -1,0 +1,72 @@
+  .team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .team-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .view-all-button {
+    background: none;
+    border: none;
+    color: #8a0cb1;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .view-all-button:hover {
+    text-decoration: underline;
+  }
+  
+  .team-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .team-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0;
+  }
+  
+  .profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 10px;
+  }
+  
+  .member-info {
+    flex: 1;
+    margin-left: 10px;
+  }
+  
+  .member-name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .member-role {
+    margin: 5px 0 0;
+    color: gray;
+    font-size: 12px;
+  }
+  
+  .mail-icon {
+    color: #8a0cb1;
+    font-size: 18px;
+  }
+  
+  .mail-icon:hover {
+    color: #0056b3;
+  }
+  

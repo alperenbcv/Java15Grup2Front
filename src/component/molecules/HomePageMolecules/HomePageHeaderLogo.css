@@ -1,0 +1,22 @@
+.logo-image {
+    width: 100px; 
+    height: 100px;
+    margin: 0px;
+}
+
+.logo-image:hover{
+    cursor: pointer;
+}
+.logo-text:hover{
+    cursor: pointer;
+}
+.logo-text {
+    margin: -25px;
+    font-size: 25px; 
+    color:white;
+}
+
+.logo-col {
+    display: flex;
+    align-items: center;
+}

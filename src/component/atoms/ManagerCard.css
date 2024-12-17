@@ -1,0 +1,72 @@
+.dashboard-img{
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    margin-left: 20px;
+}
+
+.manager-card-top-row{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.dashboard-card-edit-btn{
+    margin-bottom: 10px;
+    margin-left: -20px;
+    border: 2px solid white;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+}
+
+.dashboard-card-edit-btn:hover{
+    background-color: gray;
+}
+
+.manager-info-col{
+    margin-left: 10px;
+}
+
+.manager-name{
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.manager-title{
+    color: white;
+    font-size: small;
+    font-weight: 300;
+}
+
+.edit-icon-manager{
+    color: white;
+}
+
+.save-icon-manager{
+    color: white;
+}
+
+.manager-card-hr-1{
+    color: white;
+    margin-top: 10px;
+    height: 3px; /* Kalınlık */
+  background: linear-gradient(to right, #ffffff, #414141); /* Renk geçişi */
+  border: none; /* Kenarlıkları kaldır */
+}
+
+.info-col{
+    text-align: start;
+    margin-left: 30px;
+}
+
+.manager-info-title{
+    color: white;
+    font-size: medium;
+}
+
+.manager-info-input{
+    margin-top: 2px;
+    height: 20px;
+}

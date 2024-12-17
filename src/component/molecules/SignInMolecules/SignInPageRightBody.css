@@ -1,0 +1,60 @@
+.row-right{
+    display: flex;
+    justify-content: center;
+}
+
+.col-right{
+    padding-top: 200px;
+}
+
+.form-control{
+    width: 320px;
+    height: 50px;
+}
+
+.form-label-password, .form-label-email {
+    text-align: left;
+    width: 320px;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgb(90, 89, 89);
+    margin-bottom: 5px;
+}
+
+.form-mail {
+    margin-bottom: 10px;
+}
+
+.forgot-link{
+    text-align: end;
+    margin-top: -2px;
+    font-size: small;
+    color: black;
+}
+
+.forgot-link:hover{
+    cursor: pointer;
+}
+
+.header {
+    text-align: center;
+    font-size: x-large;
+    margin-bottom: 20px; /* Başlık altında boşluk */
+    font-weight: 700;
+}
+
+.submit-button {
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    transition: all 0.3s ease;
+    width: 320px;
+  }
+  
+  .submit-button:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+    transform: scale(1.05);
+  }

@@ -1,0 +1,14 @@
+.side-btn-manager{
+   margin-left: 10px;
+   margin-top: 20px;
+   width: 250px;
+}
+
+.side-btn-manager:hover{
+    box-shadow: rgba(228, 227, 227, 0.2) 0px 2px 8px 0px;
+}
+
+.manager-btn-text{
+    color: white;
+    margin-left: 10px;
+}

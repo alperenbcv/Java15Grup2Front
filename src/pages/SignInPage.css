@@ -1,0 +1,30 @@
+.input-col{
+    display: flex;
+    flex-direction: column; /* Dikey hizalama */
+    justify-content: center; /* Dikey ortalama */
+    align-items: center; /* Yatay ortalama */
+    height: 100vh; /* Tüm ekran yüksekliği */
+}
+
+.sign-in-body {
+    background: linear-gradient(to bottom, #ffffff, #2a2a5a);
+    overflow: hidden;
+    height: 100vh;
+}
+
+.return-button {
+    margin: 10px;
+    height: 35px;
+    padding: 1px;
+    width: 75px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border-radius: 100px;
+}
+
+.return-button:hover{
+    cursor: pointer;
+}
+
+.input-col{
+    border-right: 1px solid#2a2a5a;
+}

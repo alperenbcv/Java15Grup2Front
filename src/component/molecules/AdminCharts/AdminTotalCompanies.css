@@ -1,0 +1,19 @@
+.company-icon{
+    color: white;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.total-company-count{
+    color: white;
+    text-align: center;
+    margin-top: 25px;
+    font-weight: 900;
+}
+
+.total-company-title{
+    color: white;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+}

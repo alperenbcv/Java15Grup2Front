@@ -1,0 +1,28 @@
+.logo-image-dashboard-manager {
+    width: 100px; 
+    height: 100px;
+    margin: 0px;
+}
+
+.logo-image-dashboard-manager:hover{
+    cursor: pointer;
+}
+.logo-text-dashboard-manager:hover{
+    cursor: pointer;
+}
+.logo-text-dashboard-manager {
+    margin: -25px;
+    font-size: 25px; 
+    color:rgb(255, 255, 255);
+}
+
+.logo-col-dashboard-manager {
+    display: flex;
+    align-items: center;
+}
+
+.logo-col-manager{
+    display: flex;
+    align-items: center;
+    margin-left: -40px;
+}

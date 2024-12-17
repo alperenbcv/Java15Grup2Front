@@ -1,0 +1,87 @@
+.admin-panel-container {
+    background: linear-gradient(to bottom, #000, #1f1f3b);
+    min-height: 100vh; /* Sayfanın tamamını kaplasın */
+    overflow-x: hidden;
+  }
+
+/* Sol Side Bar */
+.admin-side-bar {
+  justify-content: flex-start;
+  border-right: 1px solid white;
+  min-height: 100vh; /* Sidebar tam yükseklikte kalsın */
+}
+
+/* Menü Başlığı */
+.admin-menu-text {
+  color: white;
+  font-size: small;
+  text-align: center;
+  font-weight: 100;
+}
+
+.admin-dash-hr-1 {
+  color: white;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Sağ Top Bar */
+.admin-dashboard-content {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.top-bar-left {
+  display: flex;
+  align-items: center; /* Dikey ortalama */
+}
+
+.topbar-resize-btn {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+}
+
+.admin-dash-hr-2{
+  color: white;
+  margin-top: 20px;
+}
+
+.admin-dashboard-header{
+  margin-left: 100px;
+  color: white;
+  font-weight: 800;
+}
+
+.admin-stat-col{
+  border: 1px solid white;
+  border-radius: 20px;
+  margin-top: 50px;
+  height: 250px;
+  max-width: 400px;
+  margin-left: 100px;
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+}
+
+.admin-chart-row{
+  margin-top: 100px;
+}
+
+.client-sector-chart{
+  border: 1px solid white;
+  border-radius: 20px;
+  margin-left: 90px;
+}
+
+.revenue-chart{
+  border: 1px solid white;
+  border-radius: 20px;
+  margin-left: 50px;
+}
+
+.sub-chart{
+  border: 1px solid white;
+  border-radius: 20px;
+  margin-left: 50px;
+}
