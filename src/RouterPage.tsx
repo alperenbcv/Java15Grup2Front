@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import SignInPage from './pages/SignInPage'
@@ -9,8 +9,20 @@ import AdminPanel from './pages/AdminPanel'
 import EmployeeDashboardPage from './pages/EmployeeDashboardPage'
 import CompanyRegisterPage from './pages/CompanyRegisterPage'
 import MemberSettings from './pages/leftTabsPages/MemberSettings'
+import { MyDispatch, MyUseSelector } from './store'
+import { useDispatch } from 'react-redux'
+import { fetchGetProfile, userLogin } from './store/feature/managerSlice'
 
 function RouterPage() {
+  const dispatch = useDispatch<MyDispatch>();
+  const isLogin = MyUseSelector((state) => state.manager.isAuth);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+      dispatch(userLogin());
+      dispatch(fetchGetProfile());
+    }
+  });
   return (
     <BrowserRouter>
     <Routes>
