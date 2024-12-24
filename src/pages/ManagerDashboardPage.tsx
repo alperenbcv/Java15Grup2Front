@@ -26,9 +26,7 @@ function ManagerDashboardPage() {
             <h1 className="manager-dashboard-header">Manager Dashboard</h1>
           </div>
           <div className="row">
-            <div className="col manager-card-col">
-              <ManagerCard />
-            </div>
+            
             <div className="col employee-details-chart">
               <EmployeeDetailsChart />
             </div>

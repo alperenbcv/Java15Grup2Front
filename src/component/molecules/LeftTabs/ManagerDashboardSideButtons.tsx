@@ -49,7 +49,7 @@ function ManagerDashboardSideButtons() {
           <div className="row">
             <ManagerDashboardSideButton
               buttonName="Member Settings"
-              buttonIcon="fa-solid fa-chalkboard-user"
+              buttonIcon="fa-solid fa-cog"
               buttonLink='member-settings'
             />
           </div>
@@ -57,6 +57,7 @@ function ManagerDashboardSideButtons() {
             <ManagerDashboardSideButton
               buttonName="Dashboard"
               buttonIcon="fa-solid fa-chalkboard-user"
+              buttonLink="manager-dashboard"
             />
           </div>
     </div>

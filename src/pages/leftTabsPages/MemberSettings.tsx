@@ -29,17 +29,6 @@ function MemberSettings() {
             <div className="col manager-card-col">
               <ManagerCard />
             </div>
-            <div className="col employee-details-chart">
-              <EmployeeDetailsChart />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col departmant-chart">
-              <EmployeeByDepartmantChart />
-            </div>
-            <div className="col employee-leave-chart">
-              <EmployeeLeaveChart />
-            </div>
           </div>
         </div>
       </div>
