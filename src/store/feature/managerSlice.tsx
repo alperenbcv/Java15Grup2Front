@@ -10,8 +10,23 @@ const initialAuthState = {
     isAuth: false,
     isLoginLoading: false,
     isRegisterLoading: false,
-    manager: {}
+    manager: {},
+    isActivationLoading: false
 };
+
+
+export const fetchManagerActivation = createAsyncThunk<IBaseResponse, string>(
+    'auth/fetchActivation',
+    async (token: string) => {
+        const response = await fetch(`${apis.authManagerService}/activate?token=${token}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return (await response.json()) as IBaseResponse;
+    }
+);
 
 
 export const fetchManagerLogin = createAsyncThunk(
@@ -30,7 +45,7 @@ export const fetchManagerLogin = createAsyncThunk(
 )
 
 export const fetchManagerRegister = createAsyncThunk<IBaseResponse, IManagerRegisterRequest>(
-    'auth/fetchCompanyRegister',
+    'auth/fetchManagerRegister',
     async (payload: IManagerRegisterRequest) => {
         const response = await fetch(`${apis.authManagerService}/register`, {
             method: 'POST',
@@ -53,7 +68,7 @@ const managerSlice = createSlice({
             console.log('FULFILLED:', action);
             state.isRegisterLoading = false;
             if (action.payload.code === 200) {
-                swal('Manager Register Successful')
+                swal('Manager Register Successful');
             } else {
                 swal('Manager Register Failed');
             }
@@ -74,6 +89,21 @@ const managerSlice = createSlice({
                 swal('Warning!', 'error');
             }
         })
+        builder.addCase(fetchManagerActivation.pending, (state) => {
+            state.isActivationLoading = true;
+        });
+        builder.addCase(fetchManagerActivation.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
+            state.isActivationLoading = false;
+            if (action.payload.code === 200) {
+                swal('Success', 'Account activation successful!', 'success');
+            } else {
+                swal('Error', 'Activation token is invalid or expired!', 'error');
+            }
+        });
+        builder.addCase(fetchManagerActivation.rejected, (state) => {
+            state.isActivationLoading = false;
+            swal('Error', 'Activation failed!', 'error');
+        });
     }
 });
 

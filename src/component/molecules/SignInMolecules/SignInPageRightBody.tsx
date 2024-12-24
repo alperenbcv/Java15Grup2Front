@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { MyDispatch } from '../../../store';
 import { fetchManagerLogin } from '../../../store/feature/managerSlice';
 import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 function SignInPageRightBody() {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,13 +29,17 @@ function SignInPageRightBody() {
         else
             setIsEmpty(false);
         
-       dispatch(fetchManagerLogin({email,password})).then(data=>{
-            if(data.payload.code === 200){
-                navigate('/manager-dashboard')
-            }
-                    
-       })
-  }
+            dispatch(fetchManagerLogin({ email, password })).then((data: any) => {
+                if (data.payload.code === 200) {
+                    navigate('/manager-dashboard');
+                } else if (data.payload.code === 2004) { // Hesap aktif değilse
+                    console.log(data.payload.code)
+                    swal('Account Inactive', 'Your account is not active. Please check your email for activation.', 'warning');
+                } else {
+                    swal('Login Failed', data.payload.message || 'Invalid email or password!', 'error');
+                }
+            });
+        }
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -87,7 +92,8 @@ function SignInPageRightBody() {
             <div className="row-btn">
             <button className='btn gradient-button submit-button' onClick={login}><span style={{color:'white'}}>Submit</span></button>
             </div>
-    </div>    
+    </div>  
+    
   )
 }
 
