@@ -10,6 +10,7 @@ const initialAuthState = {
     isAuth: false,
     isLoginLoading: false,
     isRegisterLoading: false,
+    isProfileLoading: false,
     manager: {}
 };
 
@@ -29,6 +30,13 @@ export const fetchManagerLogin = createAsyncThunk(
     }
 )
 
+export const fetchGetProfile=createAsyncThunk(
+    'manager/fetchGetProfile',
+    async ()=>{
+        return await fetch(apis.authManagerService+'/get-profile?token='+localStorage.getItem('token')).then(data=>data.json())
+    }
+)
+
 export const fetchManagerRegister = createAsyncThunk<IBaseResponse, IManagerRegisterRequest>(
     'auth/fetchCompanyRegister',
     async (payload: IManagerRegisterRequest) => {
@@ -44,7 +52,14 @@ export const fetchManagerRegister = createAsyncThunk<IBaseResponse, IManagerRegi
 const managerSlice = createSlice({
     name: 'manager',
     initialState: initialAuthState,
-    reducers: {},
+    reducers: {
+        userLogin(state){
+            state.isAuth = true;
+        },
+        userLogout(state){
+            state.isAuth=false;
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchManagerRegister.pending, (state) => {
             state.isRegisterLoading = true;
@@ -74,7 +89,16 @@ const managerSlice = createSlice({
                 swal('Warning!', 'error');
             }
         })
+        builder.addCase(fetchGetProfile.pending, (state)=>{
+            state.isProfileLoading = true
+        })
+        builder.addCase(fetchGetProfile.fulfilled, (state,action: PayloadAction<IBaseResponse>)=>{
+            state.isProfileLoading = false;
+            if(action.payload.code === 200){
+                state.manager = action.payload.data;
+            }
+        })
     }
 });
-
+export const  {userLogin,userLogout} = managerSlice.actions
 export default managerSlice.reducer;
