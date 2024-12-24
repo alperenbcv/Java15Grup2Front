@@ -50,6 +50,7 @@ function ManagerDashboardSideButtons() {
             <ManagerDashboardSideButton
               buttonName="Member Settings"
               buttonIcon="fa-solid fa-chalkboard-user"
+              buttonLink='member-settings'
             />
           </div>
           <div className="row">

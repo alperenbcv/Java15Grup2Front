@@ -1,13 +1,13 @@
 import React from "react";
-import "./ManagerDashboardPage.css";
-import DashboardPageTopBar from "../component/molecules/DashboardMolecules/DashboardPageTopBar";
-import EmployeeDetailsChart from "../component/molecules/ManagerCharts/EmployeeDetailsChart";
-import EmployeeLeaveChart from "../component/molecules/EmployeeCharts/EmployeeLeaveChart";
-import EmployeeByDepartmantChart from "../component/molecules/ManagerCharts/EmployeeByDepartmantChart";
-import ManagerCard from "../component/atoms/ManagerCard";
-import LeftSideBar from "../component/organisms/LeftSideBar";
+import ManagerDashboardSideButtons from "../../component/molecules/LeftTabs/ManagerDashboardSideButtons";
+import DashboardPageTopBar from "../../component/molecules/DashboardMolecules/DashboardPageTopBar";
+import ManagerCard from "../../component/atoms/ManagerCard";
+import EmployeeDetailsChart from "../../component/molecules/ManagerCharts/EmployeeDetailsChart";
+import EmployeeByDepartmantChart from "../../component/molecules/ManagerCharts/EmployeeByDepartmantChart";
+import EmployeeLeaveChart from "../../component/molecules/EmployeeCharts/EmployeeLeaveChart";
+import LeftSideBar from "../../component/organisms/LeftSideBar";
 
-function ManagerDashboardPage() {
+function MemberSettings() {
   return (
     <div className="container-fluid manager-dashboard-container">
       <div className="row">
@@ -23,7 +23,7 @@ function ManagerDashboardPage() {
             <hr className="manager-dash-hr-2" />
           </div>
           <div className="row">
-            <h1 className="manager-dashboard-header">Manager Dashboard</h1>
+            <h1 className="manager-dashboard-header">Member Settings</h1>
           </div>
           <div className="row">
             <div className="col manager-card-col">
@@ -47,4 +47,4 @@ function ManagerDashboardPage() {
   );
 }
 
-export default ManagerDashboardPage;
+export default MemberSettings;

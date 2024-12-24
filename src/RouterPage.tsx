@@ -8,6 +8,7 @@ import ManagerDashboardPage from './pages/ManagerDashboardPage'
 import AdminPanel from './pages/AdminPanel'
 import EmployeeDashboardPage from './pages/EmployeeDashboardPage'
 import CompanyRegisterPage from './pages/CompanyRegisterPage'
+import MemberSettings from './pages/leftTabsPages/MemberSettings'
 
 function RouterPage() {
   return (
@@ -21,6 +22,7 @@ function RouterPage() {
         <Route path='/admin-panel' element={<AdminPanel/>}/>
         <Route path='/employee-dashboard' element={<EmployeeDashboardPage/>}/>
         <Route path='/company-register' element={<CompanyRegisterPage/>}/>
+        <Route path= '/member-settings' element={<MemberSettings/>}/>
     </Routes>
     </BrowserRouter>
   )
