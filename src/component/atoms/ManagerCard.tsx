@@ -1,28 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './ManagerCard.css'
-interface UserInfo {
-    joinDate: string;
-    phone: string;
-    email: string;
-    departmant: string;
-    address: string;
-  }
+import { MyDispatch, MyUseSelector } from '../../store';
+import { useDispatch } from 'react-redux';
+import { fetchGetProfile } from '../../store/feature/managerSlice';
+import { IProfile } from '../../models/IProfile';
+
 function ManagerCard() {
+  const manager = MyUseSelector(state=> state.manager.manager)
+  const dispatch=useDispatch<MyDispatch>();
+  useEffect(()=>{
+    dispatch(fetchGetProfile)
+  }, [])
+
     const [isEditMode, setIsEditMode] = useState(false);
-  const [userInfo, setUserInfo] = useState<UserInfo>({
-    phone: "+90 999 555 4432",
-    email: "alperenbcv@gmail.com",
-    departmant: 'Engineering',
-    address: "Bornova/Izmir",
-    joinDate: "15 Nov 2024",
-  });
+  
 
   const toggleEditMode = () => setIsEditMode(!isEditMode);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  /**const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserInfo({ ...userInfo, [name]: value });
-  };
+  };*/
   return (
     <>
     <div className="row manager-card-top-row">
@@ -31,10 +29,10 @@ function ManagerCard() {
         </div>
         <div className="col-8 manager-info-col">
             <div className="row">
-                <h4 className='manager-name'>Alperen Bicav</h4>
+                <h4 className='manager-name'>{manager.name + manager.surname}</h4>
             </div>
             <div className="row">
-                <h5 className='manager-title'>Software Developer</h5>
+                <h5 className='manager-title'>{manager.title}</h5>
             </div>
         </div>
         <div className="col-1">
@@ -45,11 +43,11 @@ function ManagerCard() {
         <hr className='manager-card-hr-1'/>
     </div>
     <div className='col-12 info-col'>
-      <p className='manager-info-title'><strong>Phone Number:</strong> {isEditMode ? <input className="form-control manager-info-input" name="position" value={userInfo.phone} onChange={handleInputChange} /> : <p>{userInfo.phone}</p>}</p>
-      <p className='manager-info-title'><strong>Email Address:</strong> {isEditMode ? <input className="form-control manager-info-input" name="phone" value={userInfo.email} onChange={handleInputChange} /> : <p>{userInfo.email}</p>}</p>
-      <p className='manager-info-title'><strong>Deparmant:</strong> <p>{userInfo.departmant}</p></p>
-      <p className='manager-info-title'><strong>Address:</strong> {isEditMode ? <input className="form-control manager-info-input" name="reportOffice" value={userInfo.address} onChange={handleInputChange} /> : <p>{userInfo.address}</p>}</p>
-      <p className='manager-info-title'><strong>Joined On:</strong> <p>{userInfo.joinDate}</p></p>
+      <p className='manager-info-title'><strong>Phone Number:</strong> {isEditMode ? <input className="form-control manager-info-input" name="position" value={manager.phoneNumber} /> : <p>{manager.phoneNumber}</p>}</p>
+      <p className='manager-info-title'><strong>Email Address:</strong> {isEditMode ? <input className="form-control manager-info-input" name="phone" value={manager.email} /> : <p>{manager.email}</p>}</p>
+      <p className='manager-info-title'><strong>Deparmant:</strong> <p>{manager.department}</p></p>
+      <p className='manager-info-title'><strong>Address:</strong> {isEditMode ? <input className="form-control manager-info-input" name="reportOffice" value={manager.address} /> : <p>{manager.address}</p>}</p>
+      <p className='manager-info-title'><strong>Gender:</strong> <p>{manager.gender}</p></p>
     </div>
     </>
   )

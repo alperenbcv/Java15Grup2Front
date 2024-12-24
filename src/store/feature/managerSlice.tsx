@@ -5,13 +5,31 @@ import { IBaseResponse } from "../../models/IBaseResponse";
 import swal from "sweetalert";
 import { IManagerRegisterRequest } from "../../models/IManagerRegisterRequest";
 import { ILoginRequest } from "../../models/ILoginRequest";
+import { IProfile } from "../../models/IProfile";
 
+interface IManagerState{
+    isAuth: boolean,
+    isLoginLoading: boolean,
+    isRegisterLoading: boolean,
+    isProfileLoading: boolean,
+    manager: IProfile
+}
 const initialAuthState = {
     isAuth: false,
     isLoginLoading: false,
     isRegisterLoading: false,
     isProfileLoading: false,
-    manager: {}
+    manager: {
+        name: "none",
+        surname:  "none",
+        email:  "none",
+        phoneNumber:  "none",
+        pictureUrl:  "none",
+        address:  "none",
+        gender:  "none",
+        department:  "none",
+        title:  "none"
+    }
 };
 
 
