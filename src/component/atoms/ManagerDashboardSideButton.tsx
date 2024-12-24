@@ -1,11 +1,11 @@
 import React from 'react'
-import './ManagerDashboardSideButtons.css'
+import './ManagerDashboardSideButton.css'
 
 interface SideButton {
     buttonName:string,
     buttonIcon:string
 }
-function ManagerDashboardSideButtons(props:SideButton) {
+function ManagerDashboardSideButton(props:SideButton) {
     const {buttonName, buttonIcon} = props;
   return (
     <>
@@ -14,4 +14,4 @@ function ManagerDashboardSideButtons(props:SideButton) {
   )
 }
 
-export default ManagerDashboardSideButtons
+export default ManagerDashboardSideButton
