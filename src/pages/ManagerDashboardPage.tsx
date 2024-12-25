@@ -1,12 +1,12 @@
 import React from 'react';
-import ManagerDashboardHeaderLogo from '../component/molecules/DashboardMolecules/DashboardHeaderLogo';
+
 import './ManagerDashboardPage.css';
-import ManagerDashboardSideButtons from '../component/atoms/ManagerDashboardSideButtons';
 import DashboardPageTopBar from '../component/molecules/DashboardMolecules/DashboardPageTopBar';
 import EmployeeDetailsChart from '../component/molecules/ManagerCharts/EmployeeDetailsChart';
 import EmployeeLeaveChart from '../component/molecules/EmployeeCharts/EmployeeLeaveChart';
 import EmployeeByDepartmantChart from '../component/molecules/ManagerCharts/EmployeeByDepartmantChart';
 import ManagerCard from '../component/atoms/ManagerCard';
+import ManagerDashboardLeftBar from '../component/organisms/ManagerDashboardLeftBar';
 
 function ManagerDashboardPage() {
   return (
@@ -14,21 +14,8 @@ function ManagerDashboardPage() {
       <div className="row">
         {/* Sol Side Bar */}
         <div className="col-2 manager-side-bar">
-          <div className="row">
-            <ManagerDashboardHeaderLogo />
-          </div>
-          <div className="row">
-            <span className="manager-menu-text">Main Menu</span>
-            <hr className="manager-dash-hr-1" />
-          </div>
-          <div className="row">
-            <ManagerDashboardSideButtons
-              buttonName="Dashboard"
-              buttonIcon="fa-solid fa-chalkboard-user"
-            />
-          </div>
+          <ManagerDashboardLeftBar/>
         </div>
-
         {/* Sağ Top Bar ve İçerik */}
         <div className="col-10 manager-dashboard-content">
           <div className="row">
