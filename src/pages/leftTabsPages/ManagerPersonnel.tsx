@@ -8,7 +8,7 @@ import EmployeeLeaveChart from "../../component/molecules/EmployeeCharts/Employe
 import LeftSideBar from "../../component/organisms/LeftSideBar";
 import ProfilePhoto from "../../component/atoms/ProfilePhoto";
 
-function MemberSettings() {
+function ManagePersonnel() {
   return (
     <div className="container-fluid manager-dashboard-container">
       <div className="row">
@@ -24,7 +24,7 @@ function MemberSettings() {
             <hr className="manager-dash-hr-2" />
           </div>
           <div className="row">
-            <h1 className="manager-dashboard-header">Member Settings</h1>
+            <h1 className="manager-dashboard-header">Manage Personnel</h1>
           </div>
           <div className="row">
             <div className="col manager-card-col">
@@ -40,4 +40,4 @@ function MemberSettings() {
   );
 }
 
-export default MemberSettings;
+export default ManagePersonnel;

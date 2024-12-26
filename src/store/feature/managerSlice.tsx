@@ -6,6 +6,7 @@ import swal from "sweetalert";
 import { IManagerRegisterRequest } from "../../models/IManagerRegisterRequest";
 import { ILoginRequest } from "../../models/ILoginRequest";
 import { IProfile } from "../../models/IProfile";
+import { IEditProfile } from "../../models/IEditProfile";
 
 interface IManagerState{
     isAuth: boolean,
@@ -29,9 +30,16 @@ const initialAuthState = {
         gender:  "none",
         department:  "none",
         title:  "none"
-    }
+        }
 };
 
+
+export const fetchEditPhoto = createAsyncThunk(
+    'manager/fetchEditPhoto',
+    async (payload: string)=>{
+        return await fetch(apis.authManagerService+'/edit-photo?token=' + localStorage.getItem('token')+'&photoUrl=' + payload).then(data=> data.json())
+    }
+)
 
 export const fetchManagerLogin = createAsyncThunk(
     'auth/fetchLogin',
@@ -54,6 +62,24 @@ export const fetchGetProfile=createAsyncThunk(
         return await fetch(apis.authManagerService+'/get-profile?token='+localStorage.getItem('token')).then(data=>data.json())
     }
 )
+
+
+export const fetchEditProfile = createAsyncThunk(
+    'manager/fetchEditProfile',
+    async(payload: IEditProfile)=>{
+        const response = await fetch(
+            `${apis.authManagerService}/edit-profile`,{
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            }).then(data=>data.json())
+        return response;
+    }
+)
+
+
 
 export const fetchManagerRegister = createAsyncThunk<IBaseResponse, IManagerRegisterRequest>(
     'auth/fetchCompanyRegister',
@@ -111,6 +137,27 @@ const managerSlice = createSlice({
             state.isProfileLoading = true
         })
         builder.addCase(fetchGetProfile.fulfilled, (state,action: PayloadAction<IBaseResponse>)=>{
+            state.isProfileLoading = false;
+            if(action.payload.code === 200){
+                state.manager = action.payload.data;
+            }
+        })
+        builder.addCase(fetchEditProfile.pending, (state)=>{
+            state.isProfileLoading = true
+        })
+        builder.addCase(fetchEditProfile.fulfilled, (state, action: PayloadAction<IBaseResponse>)=>{
+            state.isProfileLoading=false;
+            if(action.payload.code===200){
+                state.manager = action.payload.data
+            }
+            else {
+                console.log('fetch başarısız/ atılmadı')
+            }
+        })
+        builder.addCase(fetchEditPhoto.pending, (state)=>{
+            state.isProfileLoading = true
+        })
+        builder.addCase(fetchEditPhoto.fulfilled, (state, action:PayloadAction<IBaseResponse>)=>{
             state.isProfileLoading = false;
             if(action.payload.code === 200){
                 state.manager = action.payload.data;

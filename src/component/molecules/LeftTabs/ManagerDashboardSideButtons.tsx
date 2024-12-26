@@ -26,6 +26,7 @@ function ManagerDashboardSideButtons() {
             <ManagerDashboardSideButton
               buttonName="Manage Personnel (manager only)"
               buttonIcon="fa-solid fa-chalkboard-user"
+              buttonLink='manage-personnel'
             />
           </div>
           <div className="row">

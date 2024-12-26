@@ -1,7 +1,10 @@
 import React from 'react'
 import './DashboardPageTopBar.css'
+import { MyUseSelector } from '../../../store'
 
 function DashboardPageTopBar() {
+    const manager = MyUseSelector(state=> state.manager.manager)
+    
   return (
     <>
     <div className="col-6 top-bar-left">
@@ -21,7 +24,7 @@ function DashboardPageTopBar() {
             <button className='btn topbar-notification-btn'><i className="fa-regular fa-bell"></i></button>
         </div>
         <div className="col-4">
-            <button className='btn profile-img-button'><img className="profile-img-topbar"src="https://picsum.photos/150/150" alt="profile-photo" /></button>
+            <button className='btn profile-img-button'><img className="profile-img-topbar"src={manager.pictureUrl} alt="profile-photo" /></button>
         </div>
         </div>
     </div>
