@@ -1,9 +1,7 @@
 export interface IEditProfile{
-    name: string,
-    surname: string,
+    token: string,
     email: string,
     phoneNumber: string,
-    pictureUrl: string,
     address: string,
     gender: string,
 }

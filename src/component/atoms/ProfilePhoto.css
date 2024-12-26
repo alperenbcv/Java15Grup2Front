@@ -1,0 +1,47 @@
+.photo{
+    border-radius: 50%;
+    max-height: 380px;
+    aspect-ratio: 1/1;
+    width: 100%;
+    transition: filter 0.3 ease;
+}
+.photo:hover{
+    filter: blur(5px);
+}
+
+.cover{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    max-height: 380px;
+    aspect-ratio: 1/1;
+    width: 100%;
+    position: relative;
+}
+
+.overlay{
+    color: black;
+    position: absolute;
+    visibility: hidden;
+}
+
+.photo:hover + .overlay{
+    visibility: visible;
+}
+
+.cover:hover + .overlay{
+    visibility: visible;
+}
+
+.overlay:hover{
+    visibility: visible;
+}
+
+.cover:hover + .photo{
+    filter: blur(5px);
+}
+
+.overlay:hover + .photo{
+    filter: blue(5px);
+}

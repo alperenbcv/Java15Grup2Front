@@ -12,6 +12,7 @@ import MemberSettings from './pages/leftTabsPages/MemberSettings'
 import { MyDispatch, MyUseSelector } from './store'
 import { useDispatch } from 'react-redux'
 import { fetchGetProfile, userLogin } from './store/feature/managerSlice'
+import ManagePersonnel from './pages/leftTabsPages/ManagerPersonnel'
 
 function RouterPage() {
   const dispatch = useDispatch<MyDispatch>();
@@ -35,6 +36,7 @@ function RouterPage() {
         <Route path='/employee-dashboard' element={<EmployeeDashboardPage/>}/>
         <Route path='/company-register' element={<CompanyRegisterPage/>}/>
         <Route path= '/member-settings' element={<MemberSettings/>}/>
+        <Route path='/manage-personnel' element={<ManagePersonnel/>}/>
     </Routes>
     </BrowserRouter>
   )
