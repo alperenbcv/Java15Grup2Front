@@ -1,9 +1,5 @@
-import pageSlice from './pageSlice';
-import companySlice from './companySlice';
-import managerSlice from './managerSlice';
+import pageSlice from "./pageSlice";
+import companySlice from "./companySlice";
+import userSlice from "./userSlice";
 
-export{
-    pageSlice,
-    companySlice,
-    managerSlice
-}
+export { pageSlice, companySlice, userSlice };

@@ -4,6 +4,7 @@ const devUrl = 'http://localhost:9090/v1/dev';
 const server = devUrl;
 
 const apis = {
+    authService: server + '/auth',
     authCompanyService: server + '/auth/company',
     authManagerService: server + '/auth/manager',
     authEmployeeService: server + '/auth/employee',
