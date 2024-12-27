@@ -7,5 +7,15 @@ export interface IProfile{
     address: string,
     gender: string,
     department: string,
-    title: string
+    title: string,
+    isAccountVerified: boolean,
+    isAccountActive: boolean,
+    hireDate: number,
+    birthDate: number,
+    isOnLeave: boolean,
+    companyId: string,
+
+    managerId?: string,
+    
+    isSuperAdmin?: boolean
 }

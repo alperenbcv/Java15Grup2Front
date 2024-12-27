@@ -3,7 +3,7 @@ import './DashboardPageTopBar.css'
 import { MyUseSelector } from '../../../store'
 
 function DashboardPageTopBar() {
-    const manager = MyUseSelector(state=> state.manager.manager)
+    const manager = MyUseSelector(state=> state.user.user)
     
   return (
     <>
