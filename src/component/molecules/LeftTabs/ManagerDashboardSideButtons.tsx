@@ -6,20 +6,24 @@ function ManagerDashboardSideButtons() {
     <div>
       <div className="row">
             <ManagerDashboardSideButton
-              buttonName="Manage Zimmet (perso only)"
-              buttonIcon="fa-solid fa-chalkboard-user"
+              buttonName="Manage Zimmet"
+              buttonIcon="fa-solid fa-list-check"
+              role='EMPLOYEE'
             />
           </div>
           <div className="row">
             <ManagerDashboardSideButton
-              buttonName="İzinler (perso only)"
-              buttonIcon="fa-solid fa-chalkboard-user"
+              buttonName="İzin Oluştur"
+              buttonIcon="fa-regular fa-file-lines"
+              buttonLink='leave'
+              role='EMPLOYEE'
             />
           </div>
           <div className="row">
             <ManagerDashboardSideButton
-              buttonName="Manage Vardiyas (manager only)"
+              buttonName="Manage Vardiyas"
               buttonIcon="fa-solid fa-chalkboard-user"
+              role='MANAGER'
             />
           </div>
           <div className="row">
@@ -27,24 +31,29 @@ function ManagerDashboardSideButtons() {
               buttonName="Manage Personnel (manager only)"
               buttonIcon="fa-solid fa-chalkboard-user"
               buttonLink='manage-personnel'
+              role='MANAGER'
             />
           </div>
           <div className="row">
             <ManagerDashboardSideButton
-              buttonName="Dashboard"
+              buttonName="Manage Leaves"
               buttonIcon="fa-solid fa-chalkboard-user"
+              buttonLink='manage-leaves'
+              role='MANAGER'
             />
           </div>
           <div className="row">
             <ManagerDashboardSideButton
-              buttonName="Tanımlamalar (admin only)"
+              buttonName="Tanımlamalar"
               buttonIcon="fa-solid fa-chalkboard-user"
+              role='ADMIN'
             />
           </div>
           <div className="row">
             <ManagerDashboardSideButton
-              buttonName="Companies (admin only)"
+              buttonName="Companies"
               buttonIcon="fa-solid fa-chalkboard-user"
+              role='ADMIN'
             />
           </div>
           <div className="row">

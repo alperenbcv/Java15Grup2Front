@@ -9,6 +9,7 @@ const apis = {
     authManagerService: server + '/auth/manager',
     authEmployeeService: server + '/auth/employee',
     authAdminService: server + '/auth/admin',
+    leaveService: server + '/leave'
 }
 
 export default apis;
