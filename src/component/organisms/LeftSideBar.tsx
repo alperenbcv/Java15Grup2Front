@@ -3,6 +3,7 @@ import DashboardHeaderLogo from '../molecules/DashboardMolecules/DashboardHeader
 import ManagerDashboardSideButtons from '../molecules/LeftTabs/ManagerDashboardSideButtons'
 
 function LeftSideBar() {
+  
   return (
     <div className="col-2 manager-side-bar">
           <div className="row">

@@ -4,7 +4,7 @@ import CyberPunkLogo from "../../atoms/GetStartedButton";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { MyDispatch } from "../../../store";
-import { fetchLogin } from "../../../store/feature/userSlice";
+import { fetchGetProfile, fetchLogin } from "../../../store/feature/userSlice";
 import { useNavigate } from "react-router-dom";
 
 function SignInPageRightBody() {
@@ -28,6 +28,7 @@ function SignInPageRightBody() {
 
     dispatch(fetchLogin({ email, password })).then((data) => {
       if (data.payload.code === 200) {
+        fetchGetProfile();
         navigate("/manager-dashboard");
       }
     });

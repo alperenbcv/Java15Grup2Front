@@ -26,6 +26,7 @@ function ManagerCard() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
+  const [birthDate, setBirthDate] = useState(new Date())
 
   useEffect(() => {
     if (!isEditMode && !isPageLoad && isEdited) {
@@ -35,16 +36,16 @@ function ManagerCard() {
         address: address,
         gender: gender,
         email: email,
+        birthDate: birthDate.getTime(),
         token: token ? token : "token",
       };
-      console.log("manager: ", manager);
-      console.log("editProfile: ", editProfile);
       dispatch(fetchEditProfile(editProfile));
     } else {
       setEmail(manager.email);
       setPhoneNumber(manager.phoneNumber);
       setAddress(manager.address);
       setGender(manager.gender);
+      setBirthDate(new Date(manager.birthDate * 1000))
     }
     setIsPageLoad(false);
     setIsEdited(false);
@@ -158,6 +159,18 @@ function ManagerCard() {
             />
           ) : (
             <p>{manager.gender}</p>
+          )}
+        </p>
+        <p className="manager-info-title">
+          <strong>BirthDate:</strong>{" "}
+          {isEditMode ? (
+            <div>
+            <label htmlFor="birthDate"></label>
+            <input id="birthDate" className="form-control" type="date" value={new Date(manager.birthDate*1000).toDateString()}/>
+          </div>
+
+          ) : (
+            <p>{new Date(manager.birthDate*1000).toLocaleDateString()}</p>
           )}
         </p>
       </div>

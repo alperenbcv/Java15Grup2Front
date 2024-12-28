@@ -22,6 +22,7 @@
     background-color: #ffffff;
     color: rgb(0, 0, 0);
     border: none;
+    margin-top: 4px;
 }
 
 .topbar-message-btn:hover{
@@ -31,7 +32,9 @@
 .topbar-notification-btn{
     background-color: #ffffff;
     color: rgb(0, 0, 0);
-    border: none; 
+    border: none;
+    margin-top: 4px;
+
 }
 
 .topbar-notification-btn:hover{
@@ -52,9 +55,6 @@
 }
 
 .profile-img-topbar {
-    position: absolute; /* Üst üste konumlandırma */
-    top: 0; /* Üstten sıfır */
-    left: 0; /* Soldan sıfır */
     width: 100%; /* Buton genişliği kadar */
     height: 100%; /* Buton yüksekliği kadar */
     border-radius: 50%; /* Yuvarlak kenarlar */
@@ -62,5 +62,9 @@
 }
 
 .profile-img-topbar:hover{
+    cursor: pointer;
+}
+
+.hover-item:hover{
     cursor: pointer;
 }

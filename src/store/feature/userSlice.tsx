@@ -34,6 +34,7 @@ const initialAuthState: IUserState = {
     isAccountActive: false,
     hireDate: 0,
     birthDate: 0,
+    role: "none",
     isOnLeave: false,
     companyId: "none",
   },
@@ -43,7 +44,7 @@ export const fetchEditPhoto = createAsyncThunk(
   "manager/fetchEditPhoto",
   async (payload: string) => {
     return await fetch(
-      apis.authManagerService +
+      apis.authService +
         "/edit-photo?token=" +
         localStorage.getItem("token") +
         "&photoUrl=" +

@@ -13,6 +13,7 @@ export interface IProfile{
     hireDate: number,
     birthDate: number,
     isOnLeave: boolean,
+    role: string,
     companyId: string,
 
     managerId?: string,
