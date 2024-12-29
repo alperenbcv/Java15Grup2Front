@@ -2,5 +2,6 @@ export interface ILeave{
     startDate: number,
     endDate: number,
     description: string,
-    leaveType: string
+    leaveType: string,
+    leaveId?: string
 }
