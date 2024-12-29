@@ -47,6 +47,28 @@ export const fetchAddLeave = createAsyncThunk(
         return response;
     }
   )
+
+interface IManageState{
+  leaveId: string|undefined,
+  token: string,
+  state: string,
+  rejectionReason?: string
+}
+
+  export const fetchManageState = createAsyncThunk(
+    "leave/fetchManageState",
+    async (payload: IManageState) => {
+      const response = await fetch(`${apis.leaveService}/manage-leave`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      }).then((data) => data.json());
+      return response;
+    }
+  );
+
 const leaveSlice = createSlice({
   name: "leave",
   initialState: initialLeaveSliceState,
@@ -76,6 +98,15 @@ const leaveSlice = createSlice({
             console.log("leaveSlice>leaveList>fetchpending> ", state.leaveList);
         }
         else {Swal.fire("leaveList çekme başarısız")}
+    })
+    builder.addCase(fetchManageState.fulfilled, (state, action: PayloadAction<IBaseResponse>)=>{
+      if (action.payload.code === 200){
+        Swal.fire("izin talebi başarıyla yönetildi");
+        fetchGetPendingLeaves()
+      }
+      else {
+        Swal.fire("İzin talebi yönetilirken bir sorun oluştu")
+      }
     })
   },
 });
