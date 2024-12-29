@@ -53,6 +53,7 @@ function ManagerDashboardSideButtons() {
             <ManagerDashboardSideButton
               buttonName="Companies"
               buttonIcon="fa-solid fa-chalkboard-user"
+              buttonLink='companies'
               role='ADMIN'
             />
           </div>

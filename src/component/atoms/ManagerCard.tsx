@@ -45,7 +45,7 @@ function ManagerCard() {
       setPhoneNumber(manager.phoneNumber);
       setAddress(manager.address);
       setGender(manager.gender);
-      setBirthDate(new Date(manager.birthDate * 1000))
+      setBirthDate(new Date(manager.birthDate))
     }
     setIsPageLoad(false);
     setIsEdited(false);
@@ -170,7 +170,7 @@ function ManagerCard() {
           </div>
 
           ) : (
-            <p>{new Date(manager.birthDate*1000).toLocaleDateString()}</p>
+            <p>{new Date(manager.birthDate).toLocaleDateString()}</p>
           )}
         </p>
       </div>

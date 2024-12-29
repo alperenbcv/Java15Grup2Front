@@ -4,19 +4,22 @@ import apis from "../../config/RestApis";
 import { IBaseResponse } from "../../models/IBaseResponse";
 import swal from "sweetalert";
 import { ICompanyNameResponse } from "../../models/ICompanyNameResponse";
+import { ICompany } from "../../models/ICompany";
 
 interface ICompanyState{
     isRegisterLoading: boolean,
     isCompanyListLoading: boolean,
     company: object,
-    companyNameList: string[]
+    companyNameList: string[],
+    companyList: ICompany[]
 }
 
 const initialAuthState: ICompanyState = {
     isRegisterLoading: false,
     isCompanyListLoading: false,
     company: {},
-    companyNameList: []
+    companyNameList: [],
+    companyList: []
 };
 
 // Async Thunk: API isteği
@@ -48,6 +51,44 @@ export const fetchCompanyList = createAsyncThunk<IBaseResponse>(
     }
 );
 
+export const fetchCompanies = createAsyncThunk<IBaseResponse>(
+    'company/fetchCompanies',
+    async () => {
+        const response = await fetch(`${apis.authCompanyService}/get-all-companies?token=` + localStorage.getItem("token"), {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch company list');
+        }
+
+        return (await response.json()) as IBaseResponse;
+    }
+)
+
+interface IManageCompanyRegisterState{
+    token: string,
+    id: string,
+    state: string
+}
+
+export const fetchManageCompany = createAsyncThunk<IBaseResponse, IManageCompanyRegisterState>(
+    'company/fetchManageCompany',
+    async (payload: IManageCompanyRegisterState) => {
+        const response = await fetch(`${apis.authCompanyService}/manage-company-register-state`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update company register state');
+        }
+
+        return (await response.json()) as IBaseResponse;
+    }
+)
 
 // Slice: State yönetimi
 const companySlice = createSlice({
@@ -82,6 +123,16 @@ const companySlice = createSlice({
         builder.addCase(fetchCompanyList.rejected, (state, action) => {
             state.isCompanyListLoading = false;
         });
+        builder.addCase(fetchCompanies.pending, (state)=> {
+            state.isCompanyListLoading = true
+        })
+        builder.addCase(fetchCompanies.fulfilled, (state, action)=>{
+            state.isCompanyListLoading = false;
+            if (action.payload.code === 200){
+                state.companyList = action.payload.data
+                console.log("companiesSliice: ", state.companyList)
+            }
+        })
     }
 });
 
