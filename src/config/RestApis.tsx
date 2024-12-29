@@ -5,6 +5,7 @@ const server = devUrl;
 
 const apis = {
     authService: server + '/auth',
+    userService: server + '/user',
     authCompanyService: server + '/auth/company',
     authManagerService: server + '/auth/manager',
     authEmployeeService: server + '/auth/employee',

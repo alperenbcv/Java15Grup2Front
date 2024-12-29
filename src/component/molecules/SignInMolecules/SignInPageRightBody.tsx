@@ -3,8 +3,8 @@ import "./SignInPageRightBody.css";
 import CyberPunkLogo from "../../atoms/GetStartedButton";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { MyDispatch } from "../../../store";
-import { fetchGetProfile, fetchLogin } from "../../../store/feature/userSlice";
+import { MyDispatch, MyUseSelector } from "../../../store";
+import { fetchGetProfile, fetchLogin, userAdmin } from "../../../store/feature/userSlice";
 import { useNavigate } from "react-router-dom";
 
 function SignInPageRightBody() {
@@ -17,7 +17,6 @@ function SignInPageRightBody() {
 
   const dispatch = useDispatch<MyDispatch>();
   const navigate = useNavigate();
-
   const login = () => {
     setIsMailEmpty(email === "");
     setIsPasswordEmpty(password === "");
@@ -28,7 +27,12 @@ function SignInPageRightBody() {
 
     dispatch(fetchLogin({ email, password })).then((data) => {
       if (data.payload.code === 200) {
-        fetchGetProfile();
+        
+        if (data.payload.data.role != "ADMIN")
+          dispatch(fetchGetProfile());
+        else {
+          dispatch(userAdmin())
+        }
         navigate("/manager-dashboard");
       }
     });

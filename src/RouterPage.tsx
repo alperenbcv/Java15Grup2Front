@@ -15,6 +15,7 @@ import { fetchGetProfile, userLogin } from "./store/feature/userSlice";
 import ManagePersonnel from "./pages/leftTabsPages/ManagerPersonnel";
 import LeavePage from "./pages/leftTabsPages/LeavePage";
 import ManageLeavesPage from "./pages/leftTabsPages/ManageLeavesPage";
+import ManageCompanies from "./pages/leftTabsPages/ManageCompanies";
 
 function RouterPage() {
   const dispatch = useDispatch<MyDispatch>();
@@ -36,11 +37,12 @@ function RouterPage() {
         <Route path="/manager-dashboard" element={isLogin?<ManagerDashboardPage />:<SignInPage/>} />
         <Route path="/admin-panel" element={isLogin?<AdminPanel />:<SignInPage/>} />
         <Route path="/employee-dashboard" element={isLogin?<EmployeeDashboardPage />:<SignInPage/>} />
-        <Route path="/company-register" element={isLogin?<CompanyRegisterPage />:<SignInPage/>} />
+        <Route path="/company-register" element={<CompanyRegisterPage />} />
         <Route path="/member-settings" element={isLogin?<MemberSettings />:<SignInPage/>} />
         <Route path="/manage-personnel" element={isLogin?<ManagePersonnel />:<SignInPage/>} />
         <Route path="/leave" element={isLogin?<LeavePage/>:<SignInPage/>}/>
         <Route path="/manage-leaves" element={isLogin?<ManageLeavesPage/>:<SignInPage/>}/>
+        <Route path="/companies" element={isLogin?<ManageCompanies/>:<SignInPage/>}/>
       </Routes>
     </BrowserRouter>
   );

@@ -7,6 +7,7 @@ import { IManagerRegisterRequest } from "../../models/IManagerRegisterRequest";
 import { ILoginRequest } from "../../models/ILoginRequest";
 import { IProfile } from "../../models/IProfile";
 import { IEditProfile } from "../../models/IEditProfile";
+import Swal from "sweetalert2";
 
 interface IUserState {
   isAuth: boolean;
@@ -71,7 +72,7 @@ export const fetchGetProfile = createAsyncThunk(
   "manager/fetchGetProfile",
   async () => {
     return await fetch(
-      apis.authService +
+      apis.userService +
         "/get-profile?token=" +
         localStorage.getItem("token")
     ).then((data) => data.json());
@@ -81,7 +82,7 @@ export const fetchGetProfile = createAsyncThunk(
 export const fetchEditProfile = createAsyncThunk(
   "manager/fetchEditProfile",
   async (payload: IEditProfile) => {
-    const response = await fetch(`${apis.authService}/edit-profile`, {
+    const response = await fetch(`${apis.userService}/edit-profile`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -114,6 +115,9 @@ const userSlice = createSlice({
     userLogout(state) {
       state.isAuth = false;
     },
+    userAdmin(state){
+      state.user.role = "ADMIN"
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchManagerRegister.pending, (state) => {
@@ -140,8 +144,10 @@ const userSlice = createSlice({
       (state, action: PayloadAction<IBaseResponse>) => {
         state.isLoginLoading = false;
         if (action.payload.code === 200) {
-          localStorage.setItem("token", action.payload.data);
+          localStorage.setItem("token", action.payload.data.token);
           state.isAuth = true;
+          
+          
         } else {
           swal("Warning!", "error");
         }
@@ -154,7 +160,7 @@ const userSlice = createSlice({
       fetchGetProfile.fulfilled,
       (state, action: PayloadAction<IBaseResponse>) => {
         state.isProfileLoading = false;
-        if (action.payload.code === 200) {
+        if (action.payload.code === 200 && state.user.role != "ADMIN") {
           state.user = action.payload.data;
         }
       }
@@ -183,9 +189,12 @@ const userSlice = createSlice({
         if (action.payload.code === 200) {
           state.user = action.payload.data;
         }
+        else{
+          Swal.fire("editProfile basarisiz")
+        }
       }
     );
   },
 });
-export const { userLogin, userLogout } = userSlice.actions;
+export const { userLogin, userLogout, userAdmin } = userSlice.actions;
 export default userSlice.reducer;
