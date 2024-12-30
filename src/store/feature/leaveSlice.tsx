@@ -95,7 +95,6 @@ const leaveSlice = createSlice({
         state.isLeaveListLoading = false;
         if (action.payload.code === 200){
             state.leaveList = action.payload.data;
-            console.log("leaveSlice>leaveList>fetchpending> ", state.leaveList);
         }
         else {Swal.fire("leaveList çekme başarısız")}
     })
