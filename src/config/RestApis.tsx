@@ -10,7 +10,10 @@ const apis = {
     authManagerService: server + '/auth/manager',
     authEmployeeService: server + '/auth/employee',
     authAdminService: server + '/auth/admin',
-    leaveService: server + '/leave'
+    leaveService: server + '/leave',
+    possessionService: server + '/possession',
+    expenseService: server + '/expense',
+    commentService: server + '/comment'
 }
 
 export default apis;

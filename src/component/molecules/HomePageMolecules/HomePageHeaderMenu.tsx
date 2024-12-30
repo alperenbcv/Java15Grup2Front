@@ -20,7 +20,7 @@ const activePage = useSelector((state: RootState)=>state.page.activePage);
                   <a className="nav-link active menu-text" href="#" style={getActive(3)}>Demo</a>
                   <a className="nav-link active menu-text" href="/manager-dashboard" style={getActive(2)}>Products</a>
                   <a className="nav-link active menu-text" href="/subscription" style={getActive(1)}>Subscription</a>
-                  <a className="nav-link active menu-text" href="#" style={getActive(4)}>Comments</a>                     
+                  <a className="nav-link active menu-text" href="/comments" style={getActive(4)}>Comments</a>                     
     </div>
   );
 }

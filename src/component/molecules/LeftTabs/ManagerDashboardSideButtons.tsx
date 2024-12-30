@@ -6,16 +6,24 @@ function ManagerDashboardSideButtons() {
     <div>
       <div className="row">
             <ManagerDashboardSideButton
-              buttonName="Manage Zimmet"
+              buttonName="Manage Possessions"
               buttonIcon="fa-solid fa-list-check"
+              buttonLink='possession'
               role='EMPLOYEE'
             />
           </div>
           <div className="row">
             <ManagerDashboardSideButton
-              buttonName="İzin Oluştur"
+              buttonName="Add a Leave"
               buttonIcon="fa-regular fa-file-lines"
               buttonLink='leave'
+              role='EMPLOYEE'
+            />
+            <div className="row">
+            <ManagerDashboardSideButton
+              buttonName="Manage Expenses"
+              buttonIcon="fa-regular fa-file-lines"
+              buttonLink='expense'
               role='EMPLOYEE'
             />
           </div>
@@ -66,11 +74,20 @@ function ManagerDashboardSideButtons() {
           </div>
           <div className="row">
             <ManagerDashboardSideButton
+              buttonName="Company Comment"
+              buttonIcon="fa-solid fa-cog"
+              buttonLink='company-comment'
+              role='MANAGER'
+            />
+          </div>
+          <div className="row">
+            <ManagerDashboardSideButton
               buttonName="Dashboard"
               buttonIcon="fa-solid fa-chalkboard-user"
               buttonLink="manager-dashboard"
             />
           </div>
+    </div>
     </div>
   )
 }
