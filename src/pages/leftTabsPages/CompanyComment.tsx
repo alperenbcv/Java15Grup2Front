@@ -5,11 +5,19 @@ import { Button } from 'antd';
 import { useDispatch } from 'react-redux';
 import { MyDispatch, MyUseSelector } from '../../store';
 import { fetchGetComment } from '../../store/feature/commentSlice';
+import LeaveTable from '../../component/atoms/LeaveTable';
+import { fetchGetLeavesByManager } from '../../store/feature/leaveSlice';
 
 function CompanyComment() {
     const dispatch = useDispatch<MyDispatch>();
     const comment = MyUseSelector((store)=> store.comment.comment);
 
+      const leave = MyUseSelector((store) => store.leave);
+      const leaveList = leave.leaveList;
+      const token = localStorage.getItem("token");
+      useEffect(() => {
+        dispatch(fetchGetLeavesByManager());
+      }, []);
     useEffect(()=>{
         dispatch(fetchGetComment())
         console.log(comment);
@@ -33,8 +41,7 @@ function CompanyComment() {
                 <h1 className="manager-dashboard-header">Company Comment</h1>
               </div>
               <div className="row">
-                <input type='textarea'/>
-                <Button  />
+                
               </div>
             </div>
           </div>

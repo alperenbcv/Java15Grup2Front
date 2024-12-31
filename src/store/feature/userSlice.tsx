@@ -146,8 +146,6 @@ const userSlice = createSlice({
         if (action.payload.code === 200) {
           localStorage.setItem("token", action.payload.data.token);
           state.isAuth = true;
-          
-          
         } else {
           swal("Warning!", "error");
         }
