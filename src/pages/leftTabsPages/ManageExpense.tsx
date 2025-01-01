@@ -5,15 +5,10 @@ import { useDispatch } from 'react-redux';
 import { MyDispatch, MyUseSelector } from '../../store';
 import { fetchGetMyPossessions } from '../../store/feature/possessionSlice';
 import { fetchGetMyExpenses } from '../../store/feature/expenseSlice';
+import ExpenseTable from '../../component/atoms/ExpenseTable';
 
 function ManageExpense() {
-    const dispatch = useDispatch<MyDispatch>();
-    const expenseList = MyUseSelector((store)=> store.expense.expenseList);
-    
-    useEffect(()=>{
-        dispatch(fetchGetMyExpenses())
-        console.log(expenseList)
-    },[])
+    const user = MyUseSelector((store)=> store.user.user);
 
     return (
         <div className="container-fluid manager-dashboard-container">
@@ -33,7 +28,7 @@ function ManageExpense() {
                 <h1 className="manager-dashboard-header">Manage Expense</h1>
               </div>
               <div className="row">
-                
+                <ExpenseTable role={user.role} />
               </div>
             </div>
           </div>

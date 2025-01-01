@@ -1,0 +1,36 @@
+.card-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .card-content {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .card-content p {
+    margin: 10px 0;
+    line-height: 1.6;
+  }
+
+  .custom-card{
+
+  }
+
+  .custom-card:hover {
+    background-color: #e6e6e6; /* Slightly darker background on hover */
+  }
+  
+  .custom-card .ant-card-meta-title {
+    color: #1890ff; /* Change the title color */
+  }
+  
+  .custom-card .ant-card-meta-description {
+    font-style: italic; /* Italic description */
+  }
+  
+  .custom-card .ant-card-body {
+    padding: 20px; /* Custom padding for content */
+  }

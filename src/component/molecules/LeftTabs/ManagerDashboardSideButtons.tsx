@@ -24,7 +24,7 @@ function ManagerDashboardSideButtons() {
               buttonName="Manage Expenses"
               buttonIcon="fa-regular fa-file-lines"
               buttonLink='expense'
-              role='EMPLOYEE'
+              excludeRole='ADMIN'
             />
           </div>
           <div className="row">

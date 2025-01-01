@@ -5,5 +5,6 @@ export interface IExpense{
     managerId: string,
     expenseDate: number,
     description: string,
-    expenseState: string
+    expenseState: string,
+    employeeName?: string
 }

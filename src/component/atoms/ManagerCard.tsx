@@ -166,7 +166,7 @@ function ManagerCard() {
           {isEditMode ? (
             <div>
             <label htmlFor="birthDate"></label>
-            <input id="birthDate" className="form-control" type="date" value={new Date(manager.birthDate*1000).toDateString()}/>
+            <input id="birthDate" className="form-control" type="date" value={new Date(manager.birthDate).toDateString()}/>
           </div>
 
           ) : (
