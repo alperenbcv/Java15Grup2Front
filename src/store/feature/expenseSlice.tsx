@@ -12,7 +12,7 @@ interface IExpenseSlice {
   isExpenseLoading: boolean,
   isExpenseListLoading: boolean
 }
-const initialPossessionSlice: IExpenseSlice = {
+const initialExpenseSlice: IExpenseSlice = {
     expense: {
         id: "",
         title: "",
@@ -56,9 +56,18 @@ export const fetchManageExpense = createAsyncThunk(
     }
   )
 
-const possessionSlice = createSlice({
-  name: "possession",
-  initialState: initialPossessionSlice,
+  export const fetchGetMyEmployeesExpenses = createAsyncThunk(
+    "expense/fetchGetMyEmployeesExpenses",
+    async () => {
+      const token = localStorage.getItem("token")
+      const response = await fetch(`${apis.expenseService}/get-my-employees-expenses?token=`+token).then(data=>data.json())
+      return response;
+    }
+  )
+
+const expenseSlice = createSlice({
+  name: "expense",
+  initialState: initialExpenseSlice,
   reducers: {
     
   },
@@ -90,4 +99,4 @@ const possessionSlice = createSlice({
     })
   },
 });
-export default possessionSlice.reducer;
+export default expenseSlice.reducer;

@@ -4,11 +4,12 @@ import apis from "../../config/RestApis";
 import { IBaseResponse } from "../../models/IBaseResponse";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
+import { IVisitorComment } from "../../models/IVisitorComment";
 
 interface ICommentState{
     comment: IComment,
     isCommentLoading: boolean,
-    commentList: IComment[],
+    commentList: IVisitorComment[],
     isCommentListLoading: boolean,
 }
 
@@ -138,7 +139,7 @@ const commentSlice = createSlice({
         })
         builder.addCase(fetchEditComment.fulfilled, (state, action:PayloadAction<IBaseResponse>)=>{
             if (action.payload.code === 200){
-                fetchGetComment();
+                state.comment = action.payload.data
             }
             else {
                 Swal.fire("yorum güncellenirken bir hatayla karşılaşıldı")
