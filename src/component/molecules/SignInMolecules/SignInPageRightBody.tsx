@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { MyDispatch, MyUseSelector } from "../../../store";
 import { fetchGetProfile, fetchLogin, userAdmin } from "../../../store/feature/userSlice";
 import { useNavigate } from "react-router-dom";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { IBaseResponse } from "../../../models/IBaseResponse";
 
 function SignInPageRightBody() {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,12 +29,12 @@ function SignInPageRightBody() {
 
     dispatch(fetchLogin({ email, password })).then((data) => {
       if (data.payload.code === 200) {
-        
         if (data.payload.data.role != "ADMIN")
           dispatch(fetchGetProfile());
         else {
           dispatch(userAdmin())
         }
+        
         navigate("/manager-dashboard");
       }
     });

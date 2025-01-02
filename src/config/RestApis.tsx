@@ -13,7 +13,8 @@ const apis = {
     leaveService: server + '/leave',
     possessionService: server + '/possession',
     expenseService: server + '/expense',
-    commentService: server + '/comment'
+    commentService: server + '/comment',
+    mediaFileService: server + '/media-file'
 }
 
 export default apis;
