@@ -6,5 +6,7 @@ export interface IExpense{
     expenseDate: number,
     description: string,
     expenseState: string,
-    employeeName?: string
+    employeeName?: string,
+    fileUrl?: string,
+    imageUrl?: string
 }

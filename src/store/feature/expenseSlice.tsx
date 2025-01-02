@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 
 import { IExpense } from "../../models/IExpense";
 
+
 interface IExpenseSlice {
   expense: IExpense,
   expenseList: IExpense[],
@@ -47,6 +48,29 @@ export const fetchManageExpense = createAsyncThunk(
     }
   );
 
+interface IAddExpense{
+  title: string,
+  description: string,
+  cost: number,
+  token: string
+}  
+
+  export const fetchAddExpense = createAsyncThunk(
+    "expense/fetchAddExpense",
+    async (payload: IAddExpense)=> {
+      const response = await fetch(`${apis.expenseService}/add-expense`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      }).then((data) => data.json());
+      return response;
+    }
+  );
+  
+
+
   export const fetchGetMyExpenses = createAsyncThunk(
     "expense/fetchGetMyExpenses",
     async ()=>{
@@ -65,6 +89,19 @@ export const fetchManageExpense = createAsyncThunk(
     }
   )
 
+ 
+
+  export const fetchUploadFile = createAsyncThunk(
+    "expense/fetchUploadFile",
+    async (payload: FormData)=> {
+      const response = await fetch(`${apis.mediaFileService}/upload-media`, {
+        method: "POST",
+        body: payload
+      }).then((data) => data.json());
+      return response;
+    }
+  )
+
 const expenseSlice = createSlice({
   name: "expense",
   initialState: initialExpenseSlice,
@@ -79,7 +116,6 @@ const expenseSlice = createSlice({
         state.isExpenseListLoading = false
         if(action.payload.code === 200){
             state.expenseList = action.payload.data
-            console.log(action.payload)
         }
         else {
             Swal.fire("Maalesef harcamalar yüklenirken bir hata oluştu")
@@ -96,6 +132,27 @@ const expenseSlice = createSlice({
         else{
             Swal.fire("İşlem gerçekleştirilirken bir hatayla karşılaşıldı")
         }
+    })
+    builder.addCase(fetchAddExpense.fulfilled, (state, action:PayloadAction<IBaseResponse>)=>{
+      if (action.payload.code === 200){
+        Swal.fire("harcama ekleme başarılı")
+      }
+      else Swal.fire("harcama eklenemedi")
+    })
+    builder.addCase(fetchUploadFile.fulfilled, (state, action:PayloadAction<IBaseResponse>)=>{
+      if (action.payload.code === 200){
+        Swal.fire("dosya başarıyla yüklendi")
+      }
+      else Swal.fire("dosya yüklenirken bir hata oluştu")
+    })
+    builder.addCase(fetchGetMyEmployeesExpenses.pending, state=>{
+      state.isExpenseListLoading = true;
+    })
+    builder.addCase(fetchGetMyEmployeesExpenses.fulfilled, (state, action:PayloadAction<IBaseResponse>)=>{
+      state.isExpenseListLoading = false;
+      if (action.payload.code === 200){
+        state.expenseList = action.payload.data;
+      }
     })
   },
 });
