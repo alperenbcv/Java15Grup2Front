@@ -64,7 +64,7 @@ export const fetchLogin = createAsyncThunk(
       },
       body: JSON.stringify(payload),
     }).then((data) => data.json());
-    return response;
+    return (await response.json()) as IBaseResponse;
   }
 );
 
@@ -104,6 +104,15 @@ export const fetchManagerRegister = createAsyncThunk<
   });
   return (await response.json()) as IBaseResponse;
 });
+
+
+export const fetchManagerByCommentId = createAsyncThunk(
+  "user/fetchManagerByCommentId",
+  async(payload: string) => {
+    const response = await fetch(`${apis.userService}/get-manager-by-comment?commentId=` + payload);
+    return (await response.json()) as IBaseResponse
+  }
+)
 
 const userSlice = createSlice({
   name: "manager",
@@ -193,6 +202,13 @@ const userSlice = createSlice({
         }
       }
     );
+    builder.addCase(fetchManagerByCommentId.pending, (state)=> {state.isProfileLoading = true})
+    builder.addCase(fetchManagerByCommentId.fulfilled, (state, action:PayloadAction<IBaseResponse>)=>{
+      state.isProfileLoading = false;
+      if (action.payload.code === 200){
+        state.user = action.payload.data
+      }
+    })
   },
 });
 export const { userLogin, userLogout, userAdmin } = userSlice.actions;
