@@ -5,6 +5,7 @@ import { IBaseResponse } from "../../models/IBaseResponse";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { IVisitorComment } from "../../models/IVisitorComment";
+import store from "..";
 
 interface ICommentState{
     comment: IComment,
@@ -16,8 +17,6 @@ interface ICommentState{
 const initialCommentState: ICommentState = {
     comment: {
         id: "",
-        managerId: "",
-        companyId: "",
         comment: ""
     },
     isCommentLoading: false,
@@ -105,7 +104,10 @@ const commentSlice = createSlice({
     name: 'company',
     initialState: initialCommentState,
     reducers: {
-
+        setComment: (state, action: PayloadAction<string>)=>{
+            state.comment.comment = action.payload
+            console.log(action.payload)
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchGetComment.pending, (state)=>{
@@ -159,5 +161,5 @@ const commentSlice = createSlice({
         })
     }
 });
-
+export const { setComment} = commentSlice.actions
 export default commentSlice.reducer;

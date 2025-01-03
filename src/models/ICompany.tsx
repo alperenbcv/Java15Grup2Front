@@ -4,7 +4,7 @@ export interface ICompany{
     companyAddress: string,
     establishedDate: number,
     industry: string,
-    employeeNumber: number,
+    employeeCount: number,
     isPaidMember: boolean,
     companyMail: string,
     companyLogoUrl: string,

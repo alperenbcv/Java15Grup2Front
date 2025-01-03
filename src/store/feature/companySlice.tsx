@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICompanyRegisterRequest } from "../../models/ICompanyRegisterRequest";
 import apis from "../../config/RestApis";
 import { IBaseResponse } from "../../models/IBaseResponse";
@@ -9,7 +9,8 @@ import { ICompany } from "../../models/ICompany";
 interface ICompanyState{
     isRegisterLoading: boolean,
     isCompanyListLoading: boolean,
-    company: object,
+    company: ICompany,
+    isCompanyLoading: boolean,
     companyNameList: string[],
     companyList: ICompany[]
 }
@@ -17,7 +18,21 @@ interface ICompanyState{
 const initialAuthState: ICompanyState = {
     isRegisterLoading: false,
     isCompanyListLoading: false,
-    company: {},
+    company: {
+        companyAddress: "",
+        companyLogoUrl: "",
+        companyMail: "",
+        companyName: "",
+        companyWebSite: "",
+        employeeCount: 0,
+        establishedDate: 0,
+        id: "",
+        industry: "",
+        isPaidMember: false,
+        membershipPlanId: "",
+        registerState: ""
+    },
+    isCompanyLoading: false,
     companyNameList: [],
     companyList: []
 };
@@ -90,6 +105,14 @@ export const fetchManageCompany = createAsyncThunk<IBaseResponse, IManageCompany
     }
 )
 
+export const fetchCompanyByComment = createAsyncThunk(
+    'company/fetchCompanyByComment',
+    async (payload: string)=>{
+        const response = await fetch(`${apis.authCompanyService}/get-company-by-comment?commentId=`+payload)
+        return (await response.json()) as IBaseResponse;
+    }
+)
+
 // Slice: State yönetimi
 const companySlice = createSlice({
     name: 'company',
@@ -131,6 +154,13 @@ const companySlice = createSlice({
             if (action.payload.code === 200){
                 state.companyList = action.payload.data
                 console.log("companiesSliice: ", state.companyList)
+            }
+        })
+        builder.addCase(fetchCompanyByComment.pending, state=>{state.isCompanyLoading = true})
+        builder.addCase(fetchCompanyByComment.fulfilled, (state, action:PayloadAction<IBaseResponse>)=>{
+            state.isCompanyLoading = false;
+            if (action.payload.code === 200){
+                state.company = action.payload.data
             }
         })
     }

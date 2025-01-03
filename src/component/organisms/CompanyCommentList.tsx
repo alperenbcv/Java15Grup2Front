@@ -10,9 +10,7 @@ function CompanyCommentList() {
     const commentList = MyUseSelector((store)=> store.comment.commentList);
     
         useEffect(()=>{
-            dispatch(fetchGetAllComments())
-            console.log(commentList)
-    
+            dispatch(fetchGetAllComments())    
         },[])
     return (
         <div className='left-body'>

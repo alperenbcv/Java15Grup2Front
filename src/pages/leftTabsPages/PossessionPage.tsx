@@ -4,14 +4,15 @@ import DashboardPageTopBar from '../../component/molecules/DashboardMolecules/Da
 import { useDispatch } from 'react-redux';
 import { MyDispatch, MyUseSelector } from '../../store';
 import { fetchGetMyPossessions } from '../../store/feature/possessionSlice';
+import PossessionTable from '../../component/atoms/PossessionTable';
 
 function PossessionPage() {
   const dispatch = useDispatch<MyDispatch>();
     const possessionList = MyUseSelector((store)=> store.possession.possessionList);
+    const user = MyUseSelector((store)=> store.user)
     
     useEffect(()=>{
         dispatch(fetchGetMyPossessions())
-        console.log(possessionList)
     },[])
   return (
     <div className="container-fluid manager-dashboard-container">
@@ -31,7 +32,7 @@ function PossessionPage() {
             <h1 className="manager-dashboard-header">Manage Possession</h1>
           </div>
           <div className="row">
-            
+            <PossessionTable possessionList={possessionList} role={user.user.role} />
           </div>
         </div>
       </div>

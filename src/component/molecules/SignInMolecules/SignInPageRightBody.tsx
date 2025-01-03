@@ -27,7 +27,7 @@ function SignInPageRightBody() {
       return;
     } else setIsEmpty(false);
 
-    dispatch(fetchLogin({ email, password })).then((data) => {
+    dispatch(fetchLogin({ email, password })).then((data:any) => {
       if (data.payload.code === 200) {
         if (data.payload.data.role != "ADMIN")
           dispatch(fetchGetProfile());
