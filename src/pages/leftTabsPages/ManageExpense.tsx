@@ -30,8 +30,11 @@ function ManageExpense() {
           cost: Number(cost),
           description: description,
           token: token?token:""
-        }))
-        setIsAltered(!isAltered);
+        })).then(data=>{
+          if (data.payload.code === 200){
+            dispatch(fetchGetMyExpenses())
+          }
+        })
       }
     }
 
@@ -53,11 +56,11 @@ function ManageExpense() {
                 <h1 className="manager-dashboard-header">Manage Expense</h1>
               </div>
               <div className="row">
-                <ExpenseTable alter={isAltered} role={user.role} />
+                <ExpenseTable/>
               </div>
-              <div>
+             {user.role == "MANAGER"? <></>: <div>
                 <FloatButton onClick={()=>setIsAddExpense(!isAddExpense)} type='primary' tooltip={<div>Add an Expense</div>} />
-              </div>
+              </div>}
               <div>
                 {isAddExpense?<div className='row mt-4 w-75 mx-auto'>
                   <Space direction='vertical' >

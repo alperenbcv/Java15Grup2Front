@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LeftSideBar from "../../component/organisms/LeftSideBar";
 import DashboardPageTopBar from "../../component/molecules/DashboardMolecules/DashboardPageTopBar";
 import {
@@ -13,6 +13,7 @@ import { userInfo } from "os";
 import Swal from "sweetalert2";
 import state from "sweetalert/typings/modules/state";
 import LeaveTable from "../../component/atoms/LeaveTable";
+import { fetchGetMyEmployeesExpenses } from "../../store/feature/expenseSlice";
 
 const { Column, ColumnGroup } = Table;
 
@@ -20,47 +21,11 @@ function ManageLeavesPage() {
   const dispatch = useDispatch<MyDispatch>();
   const leave = MyUseSelector((store) => store.leave);
   const leaveList = leave.leaveList;
-  const token = localStorage.getItem("token");
   useEffect(() => {
     dispatch(fetchGetLeavesByManager());
-    console.log("leaveList: ", leaveList);
   }, []);
 
-  const manageState = async (leaveId: string | undefined, state: string) => {
-    if (state == "REJECTED") {
-      const { value: text } = await Swal.fire({
-        input: "textarea",
-        inputLabel: "Message",
-        inputPlaceholder: "Type your message here...",
-        inputAttributes: {
-          "aria-label": "Type your message here",
-        },
-        showCancelButton: true,
-      });
-      const token = localStorage.getItem("token")
-        ? localStorage.getItem("token")
-        : "";
-      dispatch(
-        fetchManageState({
-          token: token ? token : "token",
-          leaveId: leaveId,
-          state: state,
-          rejectionReason: text,
-        })
-      );
-    } else {
-      const token = localStorage.getItem("token")
-        ? localStorage.getItem("token")
-        : "";
-      dispatch(
-        fetchManageState({
-          token: token ? token : "token",
-          leaveId: leaveId,
-          state: state,
-        })
-      );
-    }
-  };
+  
 
   return (
     <div className="container-fluid manager-dashboard-container">

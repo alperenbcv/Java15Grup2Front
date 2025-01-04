@@ -9,7 +9,7 @@ function ManagerDashboardSideButtons() {
               buttonName="Manage Possessions"
               buttonIcon="fa-solid fa-list-check"
               buttonLink='possession'
-              role='EMPLOYEE'
+              excludeRole='ADMIN'
             />
           </div>
           <div className="row">
@@ -36,7 +36,7 @@ function ManagerDashboardSideButtons() {
           </div>
           <div className="row">
             <ManagerDashboardSideButton
-              buttonName="Manage Personnel (manager only)"
+              buttonName="Manage Personnel"
               buttonIcon="fa-solid fa-chalkboard-user"
               buttonLink='manage-personnel'
               role='MANAGER'

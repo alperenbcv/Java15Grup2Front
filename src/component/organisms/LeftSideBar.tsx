@@ -6,7 +6,8 @@ function LeftSideBar() {
   
   return (
     <div className="col-2 manager-side-bar">
-          <div className="row">
+      <div className='position-fixed top-0 start-0 p-3'>
+      <div className="row">
             <DashboardHeaderLogo />
           </div>
           <div className="row">
@@ -16,6 +17,8 @@ function LeftSideBar() {
 
           {/**ManagerDashBoardSideButtons */}
           <ManagerDashboardSideButtons/>
+      </div>
+          
         </div>
   )
 }

@@ -110,7 +110,6 @@ const leaveSlice = createSlice({
       (state, action: PayloadAction<IBaseResponse>) => {
         if (action.payload.code === 200) {
           Swal.fire("izin talebi başarıyla yönetildi");
-          fetchGetLeavesByManager();
         } else {
           Swal.fire("İzin talebi yönetilirken bir sorun oluştu");
         }

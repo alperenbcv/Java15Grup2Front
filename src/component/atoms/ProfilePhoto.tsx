@@ -3,21 +3,29 @@ import "./ProfilePhoto.css";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { MyDispatch, MyUseSelector } from "../../store";
-import { fetchEditPhoto } from "../../store/feature/userSlice";
+import { fetchEditPhoto, fetchGetProfile } from "../../store/feature/userSlice";
 
 function ProfilePhoto() {
   const dispatch = useDispatch<MyDispatch>();
   const changePhoto = () => {
     const value = Swal.fire({
       title: "New Photo",
-      input: "text",
-      inputLabel: "Enter the url of the new photo: ",
+      input: "file",
+      inputLabel: "Choose your photo (2MB)",
       showCancelButton: true,
-      inputValidator: (value) => {
-        if (!value) {
-          return "You need to write something!";
+      inputValidator: (value: any) => {
+        if (value) {
+          const formData = new FormData();
+          const token = localStorage.getItem("token");
+          formData.append("token", token?token:"")
+          formData.append("file", value)
+          dispatch(fetchEditPhoto(formData)).then(data=> {
+            if (data.payload.code === 200){
+              dispatch(fetchGetProfile())
+            }
+          })
         } else {
-          dispatch(fetchEditPhoto(value));
+          return "You haven't choose your photo yet!";
         }
       },
     });

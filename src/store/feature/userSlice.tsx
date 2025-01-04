@@ -8,6 +8,7 @@ import { ILoginRequest } from "../../models/ILoginRequest";
 import { IProfile } from "../../models/IProfile";
 import { IEditProfile } from "../../models/IEditProfile";
 import Swal from "sweetalert2";
+import state from "sweetalert/typings/modules/state";
 
 interface IUserState {
   isAuth: boolean;
@@ -15,6 +16,8 @@ interface IUserState {
   isRegisterLoading: boolean;
   isProfileLoading: boolean;
   user: IProfile;
+  userList: IProfile[];
+  isUserListLoading: boolean;
 }
 const initialAuthState: IUserState = {
   isAuth: false,
@@ -35,21 +38,24 @@ const initialAuthState: IUserState = {
     isAccountActive: false,
     hireDate: 0,
     birthDate: 0,
+    wage: 0,
     role: "none",
     isOnLeave: false,
     companyId: "none",
   },
+  userList: [],
+  isUserListLoading: false
 };
 
 export const fetchEditPhoto = createAsyncThunk(
   "manager/fetchEditPhoto",
-  async (payload: string) => {
+  async (payload: FormData) => {
     return await fetch(
-      apis.authService +
-        "/edit-photo?token=" +
-        localStorage.getItem("token") +
-        "&photoUrl=" +
-        payload
+      apis.mediaFileService +
+        "/upload-profile-picture",{
+          method: "POST",
+          body: payload
+        }
     ).then((data) => data.json());
   }
 );
@@ -64,7 +70,7 @@ export const fetchLogin = createAsyncThunk(
       },
       body: JSON.stringify(payload),
     }).then((data) => data.json());
-    return (await response.json()) as IBaseResponse;
+    return response;
   }
 );
 
@@ -114,6 +120,31 @@ export const fetchManagerByCommentId = createAsyncThunk(
   }
 )
 
+export const fetchGetMyEmployees = createAsyncThunk(
+  "user/fetchGetMyEmployees",
+  async()=>{
+    const token = localStorage.getItem("token");
+    const response = await fetch(`${apis.userService}/get-my-employees?token=` + token).then(data=> data.json());
+    return response
+  }
+
+)
+
+export const fetchAddEmployee = createAsyncThunk(
+  "user/fetchAddEmployee",
+  async(payload:any)=>{
+    const response = await fetch(`${apis.userService}/add-employee`, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(data=> data.json())
+    return response
+
+  }
+)
+
 const userSlice = createSlice({
   name: "manager",
   initialState: initialAuthState,
@@ -123,9 +154,6 @@ const userSlice = createSlice({
     },
     userLogout(state) {
       state.isAuth = false;
-    },
-    userAdmin(state){
-      state.user.role = "ADMIN"
     }
   },
   extraReducers: (builder) => {
@@ -209,7 +237,27 @@ const userSlice = createSlice({
         state.user = action.payload.data
       }
     })
+    builder.addCase(fetchGetMyEmployees.pending, state=> {state.isUserListLoading = true})
+    builder.addCase(fetchGetMyEmployees.fulfilled, (state, action:PayloadAction<IBaseResponse>)=>{
+      state.isUserListLoading = false
+      if(action.payload.code === 200){
+        state.userList = action.payload.data
+      }
+    })
+    builder.addCase(fetchAddEmployee.fulfilled, (state, action:PayloadAction<IBaseResponse>)=>{
+      if (action.payload.code === 200){
+        Swal.fire({
+          icon: 'success',
+          text: 'employee successfully registered'
+        })
+      } else{
+        Swal.fire({
+          icon: "error",
+          text: "başarısız"
+        })
+      }
+    })
   },
 });
-export const { userLogin, userLogout, userAdmin } = userSlice.actions;
+export const { userLogin, userLogout } = userSlice.actions;
 export default userSlice.reducer;

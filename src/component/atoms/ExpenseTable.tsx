@@ -7,24 +7,21 @@ import { fetchAddExpense, fetchGetMyEmployeesExpenses, fetchGetMyExpenses, fetch
 import { IExpense } from '../../models/IExpense';
 import { FileImageOutlined, FilePdfOutlined, PlusOutlined } from '@ant-design/icons';
 
-interface IExpenseTableProps{
-    role: string,
-    alter: boolean
-}
 
-function ExpenseTable(props: IExpenseTableProps) {
-    const [alter, setAlter] = useState(false);
+
+function ExpenseTable() {
+  const user = MyUseSelector((store)=> store.user.user)
+  const role = user.role
     const dispatch = useDispatch<MyDispatch>();
     useEffect(()=>{
-        if (props.role == "EMPLOYEE")
+        if (role == "EMPLOYEE")
             dispatch(fetchGetMyExpenses())
-        else if (props.role == "MANAGER")
+        else if (role == "MANAGER")
             dispatch(fetchGetMyEmployeesExpenses())
-    },[props.alter, alter])
+    },[])
     const expenseTable = MyUseSelector((store)=> store.expense.expenseList)
 
     const expenseTableSource = expenseTable.map((expense, idx)=> {
-        console.log('expense no' + idx + ": ", expense)
         return(
         {
             expense: expense,
@@ -32,14 +29,18 @@ function ExpenseTable(props: IExpenseTableProps) {
         }
     )})
   const manageState = async (leaveId: string | undefined, state: string) => {
-      if (props.role == "MANAGER"){
+      if (role == "MANAGER"){
         const token = localStorage.getItem("token");
             dispatch(
                 fetchManageExpense({
                   agentToken: token ? token : "token",
                   itemId: leaveId?leaveId:'',
                   updatedState: state,
-                }))
+                })).then(data=>{
+                  if(data.payload.success === true){
+                    dispatch(fetchGetMyEmployeesExpenses());
+                  }
+                })
       }
     };
 
@@ -76,7 +77,7 @@ function ExpenseTable(props: IExpenseTableProps) {
                 "aria-label": "Upload your file"
             }
         });
-        
+        console.log(type)
         if (file){
             const token = localStorage.getItem("token");
             const formData = new FormData();
@@ -99,7 +100,7 @@ function ExpenseTable(props: IExpenseTableProps) {
         }
         
         const columns: TableColumnsType<DataType> = [
-            props.role == "MANAGER"? {
+            role == "MANAGER"? {
                 title: 'Employee Name',
                 dataIndex: 'expense',
                 render: (expense: IExpense)=> expense.employeeName
@@ -114,7 +115,9 @@ function ExpenseTable(props: IExpenseTableProps) {
             {
                 title: 'Title',
                 dataIndex: 'expense',
-                render: (expense: IExpense)=> expense.title 
+                render: (expense: IExpense)=> expense.title ,
+                sorter: (a, b) => a.expense.title.localeCompare(b.expense.title)
+                
             },
             {
                 title: 'Description',
@@ -147,24 +150,24 @@ function ExpenseTable(props: IExpenseTableProps) {
                  render: (record: IExpense) => (<Space size="middle" direction='horizontal'>
                     {record.imageUrl?(<Button onClick={(evt)=>window.open(record.imageUrl, '_blank')} size='large' type='primary' icon={<FileImageOutlined />}></Button>):<Button size='large' type='dashed' icon={<FileImageOutlined/>} disabled></Button> }
                     {record.fileUrl?(<Button onClick={(evt)=>window.open(record.fileUrl, '_blank')} size='large' type='primary' icon={<FilePdfOutlined />}></Button>):<Button size='large' type='dashed' icon={<FilePdfOutlined />} disabled></Button> }
-                    {props.role == "EMPLOYEE"?<Button style={{backgroundColor: 'green', color: 'white'}} onClick={(evt)=>addFile(record)} icon={<PlusOutlined />} type='link' ></Button>:<></>}
+                    {role == "EMPLOYEE" && record.expenseState == "PENDING"?<Button style={{backgroundColor: 'green', color: 'white'}} onClick={(evt)=>addFile(record)} icon={<PlusOutlined />} type='link' ></Button>:<></>}
                     </Space>)
                  
             }, 
-            props.role == "MANAGER"?
+            role == "MANAGER"?
             {
                         title: 'Actions',
                         dataIndex: "expense",
                         render: (record: IExpense) => record.expenseState == "PENDING"? (
                             <Space size="middle">
                               <Button
-                                onClick={(evt) => manageState(record.expenseState, "ACCEPTED")}
+                                onClick={(evt) => manageState(record.id, "ACCEPTED")}
                                 type="primary"
                               >
                                 Accept
                               </Button>
                               <Button
-                                onClick={(evt) => manageState(record.expenseState, "REJECTED")}
+                                onClick={(evt) => manageState(record.id, "REJECTED")}
                                 type="primary"
                                 danger
                               >
