@@ -14,7 +14,8 @@ function CompanyCommentList() {
         },[])
     return (
         <div className='left-body'>
-            <Flex gap="middle" align="start" vertical>
+            <Flex gap="middle" align="start" vertical
+            style={{overflowY: 'auto'}}>
                 {commentList.map(comment=> <CommentCard visitorComment={comment} />)}
             </Flex>
         </div>

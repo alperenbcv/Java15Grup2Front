@@ -24,8 +24,13 @@ function ManageCompanies() {
           token: token?token:"token",
           id: companyId? companyId: "",
           state: registerState
-        }))
-        
+        })).then(data=>{
+          if (data.payload.code === 200){
+            dispatch(fetchCompanies())
+          }
+          console.log("IKINCI FETCH SONRASI")
+        })
+
         
       }
 
@@ -49,19 +54,64 @@ function ManageCompanies() {
               
               <div className="row">
               <Table<ICompany> dataSource={companyList}>
-            <Column title="Company Name" dataIndex="companyName" key="companyName" />
+            <Column title="Company Name" dataIndex="companyName" key="companyName" sorter= {(a, b) => a.companyName.localeCompare(b.companyName)} />
             <Column title="Company Address" dataIndex="companyAddress" key="companyAddress" />
-            <Column title="Established Date" dataIndex="establishedDate" key="establishedDate"  render={(date)=> new Date(date).toLocaleDateString()} />
-            <Column title="Industry" dataIndex="industry" key="industry"/>
-            <Column title="Register State" dataIndex="registerState" key="registerState" />
+            <Column title="Established Date" dataIndex="establishedDate" key="establishedDate"  render={(date)=> new Date(date).toLocaleDateString()}  sorter={(a, b)=> a.establishedDate - b.establishedDate } />
+            <Column title="Industry" dataIndex="industry" key="industry" filters={[
+              {
+                text: "Technology", value: "Technology"
+              },
+                {
+                  text: "Healthcare", value: "Healthcare"
+              },
+              {
+                text: "Finance", value: "Finance"
+            },
+              {
+                text: "Automotive", value: "Automotive"
+                },
+                  {
+                    text: "Entertainment", value: "Entertainment"
+                },
+              {
+                text: "Retail", value: "Retail"
+            },
+                {
+                text: "Energy", value: "Energy"
+            },
+            {
+              text: "Telecommunications", value: "Telecommunications"
+            },
+            {
+              text: "Manufacturing", value: "Manufacturing"
+            },
+            {
+              text: "Real Estate", value: "Real Estate"
+            }
+            ]} onFilter={ (value, record) => record.industry.startsWith(value as string)}
+            filterSearch={true} />
+            <Column title="Register State" dataIndex="registerState" key="registerState" filters={[
+                {
+                    text: "ACCEPTED",
+                    value: "ACCEPTED"
+                },
+                {
+                    text: "REJECTED",
+                    value: "REJECTED"
+                },{
+                    text: "PENDING",
+                    value: "PENDING"
+                },
+            ]} onFilter={(value, record) => record.registerState.startsWith(value as string)}/>
             <Column
       title="Action"
       key="action"
       render={(_: any, record: ICompany) => (
+        record.registerState == "PENDING"?
         <Space size="middle">
          <Button onClick={(evt)=> manageState(record.id, "ACCEPTED")}  type='primary'>Accept</Button>
          <Button onClick={(evt)=> manageState(record.id, "REJECTED")}type='primary' danger>Reject</Button>
-        </Space>
+        </Space> :<hr/>
       )}
     />
             </Table>

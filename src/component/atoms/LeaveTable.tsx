@@ -6,7 +6,7 @@ import { render } from 'react-dom';
 import { useDispatch } from 'react-redux';
 import { MyDispatch } from '../../store';
 import Swal from 'sweetalert2';
-import { fetchManageState } from '../../store/feature/leaveSlice';
+import { fetchGetLeavesByManager, fetchManageState } from '../../store/feature/leaveSlice';
 
 
 
@@ -39,7 +39,11 @@ const manageState = async (leaveId: string | undefined, state: string) => {
           state: state,
           rejectionReason: text,
         })
-      );
+      ).then(data=>{
+        if (data.payload.code === 200){
+          dispatch(fetchGetLeavesByManager())
+        }
+      })
     } else {
       const token = localStorage.getItem("token")
         ? localStorage.getItem("token")
@@ -50,7 +54,11 @@ const manageState = async (leaveId: string | undefined, state: string) => {
           leaveId: leaveId,
           state: state,
         })
-      );
+      ).then(data=>{
+        if (data.payload.code === 200){
+          dispatch(fetchGetLeavesByManager())
+        }
+      })
     }
   };
 

@@ -5,6 +5,7 @@ import { IBaseResponse } from "../../models/IBaseResponse";
 import swal from "sweetalert";
 import { ICompanyNameResponse } from "../../models/ICompanyNameResponse";
 import { ICompany } from "../../models/ICompany";
+import Swal from "sweetalert2";
 
 interface ICompanyState{
     isRegisterLoading: boolean,
@@ -88,20 +89,16 @@ interface IManageCompanyRegisterState{
     state: string
 }
 
-export const fetchManageCompany = createAsyncThunk<IBaseResponse, IManageCompanyRegisterState>(
+export const fetchManageCompany = createAsyncThunk(
     'company/fetchManageCompany',
     async (payload: IManageCompanyRegisterState) => {
         const response = await fetch(`${apis.authCompanyService}/manage-company-register-state`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
-        });
+        }).then(data=> data.json())
 
-        if (!response.ok) {
-            throw new Error('Failed to update company register state');
-        }
-
-        return (await response.json()) as IBaseResponse;
+        return response
     }
 )
 
@@ -162,6 +159,18 @@ const companySlice = createSlice({
             if (action.payload.code === 200){
                 state.company = action.payload.data
             }
+        })
+        builder.addCase(fetchManageCompany.fulfilled, (state, action:PayloadAction<IBaseResponse>)=>{
+            if (action.payload.code === 200){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Şirket durumu değiştirme başarılı'
+                })
+            }
+            else Swal.fire({
+                icon: 'error',
+                title: "Şirket durumu değiştirilirken bir hatayla karşılaşıldı"
+            })
         })
     }
 });

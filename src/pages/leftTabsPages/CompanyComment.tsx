@@ -39,7 +39,7 @@ function CompanyComment() {
           <div className="row">
             {/* Sol Side Bar */}
             <LeftSideBar/>
-    
+            
             {/* Sağ Top Bar ve İçerik */}
             <div className="col-10 manager-dashboard-content">
               <div className="row">

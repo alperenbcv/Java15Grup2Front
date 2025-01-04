@@ -21,7 +21,7 @@ function CommentCard(props: ICommentCardProps) {
     const { Meta } = Card;
 
   const viewInDetail = ()=>{
-    setComment(visitorComment.comment.comment)
+    dispatch(setComment(visitorComment.comment.comment))
     dispatch(fetchManagerByCommentId(commentId))
     dispatch(fetchCompanyByComment(commentId))
     navigate("/comment-detail")

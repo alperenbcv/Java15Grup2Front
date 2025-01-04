@@ -18,7 +18,6 @@ function CommentDetail() {
     const comment = MyUseSelector((store)=> store.comment.comment.comment)
     const { Meta } = Card;
 
-    console.log(comment)
     
   return (
     <div
@@ -47,7 +46,7 @@ function CommentDetail() {
                 <Meta  title="E-Mail" /> {company.companyMail}
                 <Meta  title="Website" /> {company.companyWebSite}
                 <Meta  title="Employee Count" /> {company.employeeCount}
-                <Meta  title="Established Date" /> {company.establishedDate}
+                <Meta  title="Established Date" /> {new Date(company.establishedDate).toLocaleDateString()}
                 <Meta  title="Industry" /> {company.industry}
               </Card >
           </div>
@@ -60,8 +59,13 @@ function CommentDetail() {
               </Card>
              </div>
              <div className="col-4">
-             <Card style={{width:'100%'}}>
-              </Card>
+             <Card style={{width:'100%'}} cover={<img style={{maxHeight:'400px', objectFit:'cover', objectPosition:'center'}} alt="company logo" src={manager.pictureUrl}  />}>
+                <Meta  title="Name" /> {manager.name + ' ' + manager.surname}
+                <Meta  title="Address" /> {company.companyAddress}
+                <Meta  title="E-Mail" /> {manager.email}
+                <Meta  title="Phone Number" /> {manager.phoneNumber}
+                <Meta  title="Title" /> {manager.title}
+              </Card >
              </div>
              
               

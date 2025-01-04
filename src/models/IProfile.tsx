@@ -15,6 +15,7 @@ export interface IProfile{
     isOnLeave: boolean,
     role: string,
     companyId: string,
+    wage: number,
 
     managerId?: string,
     
