@@ -21,10 +21,13 @@ import ManageExpense from "./pages/leftTabsPages/ManageExpense";
 import CompanyComment from "./pages/leftTabsPages/CompanyComment";
 import Comments from "./pages/Comments";
 import CommentDetail from "./pages/CommentDetail";
+import PersonnelFileManagement from "./pages/leftTabsPages/PersonnelFileManagement";
 
 function RouterPage() {
   const dispatch = useDispatch<MyDispatch>();
-  const isLogin = MyUseSelector((state) => state.user.isAuth);
+  const isLogin = MyUseSelector((store) => store.user.isAuth);
+  const role = MyUseSelector((store)=> store.user.user.role);
+  const isManager = role ==="MANAGER"
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token !== null) {
@@ -53,6 +56,7 @@ function RouterPage() {
         <Route path="/company-comment" element={isLogin?<CompanyComment/>:<SignInPage/>}/>
         <Route path="/comments" element={<Comments/>}/>
         <Route path="/comment-detail" element={<CommentDetail/>}/>
+        <Route path="/personnel-file" element={isLogin?(isManager?<PersonnelFileManagement/>:<EmployeeDashboardPage/>):<SignInPage/>}/>
       </Routes>
     </BrowserRouter>
   );

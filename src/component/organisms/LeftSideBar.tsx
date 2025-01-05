@@ -6,7 +6,7 @@ function LeftSideBar() {
   
   return (
     <div className="col-2 manager-side-bar">
-      <div className='position-fixed top-0 start-0 p-3'>
+      <div className=''>
       <div className="row">
             <DashboardHeaderLogo />
           </div>

@@ -77,7 +77,6 @@ function ExpenseTable() {
                 "aria-label": "Upload your file"
             }
         });
-        console.log(type)
         if (file){
             const token = localStorage.getItem("token");
             const formData = new FormData();
