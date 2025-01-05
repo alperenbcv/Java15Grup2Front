@@ -52,6 +52,13 @@ function ManagerDashboardSideButtons() {
           </div>
           <div className="row">
             <ManagerDashboardSideButton
+            buttonIcon="fa-solid fa-chalkboard-user"
+            buttonName='Personnel File Management'
+            buttonLink='personnel-file'
+            role='MANAGER' />
+          </div>
+          <div className="row">
+            <ManagerDashboardSideButton
               buttonName="Tanımlamalar"
               buttonIcon="fa-solid fa-chalkboard-user"
               role='ADMIN'

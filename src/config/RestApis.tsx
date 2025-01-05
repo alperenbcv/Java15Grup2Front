@@ -14,7 +14,8 @@ const apis = {
     possessionService: server + '/possession',
     expenseService: server + '/expense',
     commentService: server + '/comment',
-    mediaFileService: server + '/media-file'
+    mediaFileService: server + '/media-file',
+    personnelFileService: server + '/personnel-file'
 }
 
 export default apis;
