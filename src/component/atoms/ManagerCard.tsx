@@ -8,6 +8,7 @@ import {
 } from "../../store/feature/userSlice";
 import { IProfile } from "../../models/IProfile";
 import { IEditProfile } from "../../models/IEditProfile";
+import { Input } from "antd";
 
 function ManagerCard() {
   const manager = MyUseSelector((state) => state.user.user);
@@ -27,6 +28,7 @@ function ManagerCard() {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
   const [birthDate, setBirthDate] = useState(new Date())
+  const [department, setDepartment] = useState("");
 
   useEffect(() => {
     if (!isEditMode && !isPageLoad && isEdited) {
@@ -36,6 +38,7 @@ function ManagerCard() {
         address: address,
         gender: gender,
         email: email,
+        department: department,
         birthDate: birthDate.getTime(),
         token: token ? token : "token",
       };
@@ -46,6 +49,7 @@ function ManagerCard() {
       setAddress(manager.address);
       setGender(manager.gender);
       setBirthDate(new Date(manager.birthDate))
+      setDepartment(manager.department)
     }
     setIsPageLoad(false);
     setIsEdited(false);
@@ -95,11 +99,10 @@ function ManagerCard() {
         <p className="manager-info-title">
           <strong>Phone Number:</strong>{" "}
           {isEditMode ? (
-            <input
-              type="text"
+            <Input
+              style={{width:'90%'}}
               id="phoneNumber"
-              className="form-control manager-info-input"
-              name="position"
+              name="phoneNumber"
               value={phoneNumber}
               onChange={(evt) => {
                 setPhoneNumber(evt.target.value);
@@ -113,9 +116,10 @@ function ManagerCard() {
         <p className="manager-info-title">
           <strong>Email Address:</strong>{" "}
           {isEditMode ? (
-            <input
-              className="form-control manager-info-input"
-              name="phone"
+            <Input
+            style={{width:'90%'}}
+            id='email'
+              name="email"
               value={email}
               onChange={(evt) => {
                 setEmail(evt.target.value);
@@ -127,14 +131,31 @@ function ManagerCard() {
           )}
         </p>
         <p className="manager-info-title">
-          <strong>Deparmant:</strong> <p>{manager.department}</p>
+          <strong>Deparmant:</strong> 
+          {isEditMode
+          ?
+          <Input
+          style={{width:'80%'}}
+          id="department"
+          name="department"
+            value={department}
+            onChange={(evt)=>{
+              setDepartment(evt.target.value)
+              setIsEdited(true)
+            }}
+          
+          />
+          :
+          <p>{manager.department}</p>
+}
         </p>
         <p className="manager-info-title">
           <strong>Address:</strong>{" "}
           {isEditMode ? (
-            <input
-              className="form-control manager-info-input"
-              name="reportOffice"
+            <Input
+            style={{width:'90%'}}
+            id='address'
+              name="address"
               value={address}
               onChange={(evt) => {
                 setAddress(evt.target.value);
@@ -148,8 +169,9 @@ function ManagerCard() {
         <p className="manager-info-title">
           <strong>Gender:</strong>{" "}
           {isEditMode ? (
-            <input
-              className="form-control manager-info-input"
+            <Input
+            style={{width:'90%'}}
+            id= 'gender'
               name="gender"
               value={gender}
               onChange={(evt) => {
@@ -166,7 +188,7 @@ function ManagerCard() {
           {isEditMode ? (
             <div>
             <label htmlFor="birthDate"></label>
-            <input id="birthDate" className="form-control" type="date" value={new Date(manager.birthDate).toDateString()}/>
+            <Input name="birthDate" id="birthDate" style={{width:'90%'}} type="date" value={new Date(manager.birthDate).toDateString()}/>
           </div>
 
           ) : (

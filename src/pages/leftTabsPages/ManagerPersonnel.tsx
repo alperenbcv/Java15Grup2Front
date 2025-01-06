@@ -8,18 +8,19 @@ import EmployeeLeaveChart from "../../component/molecules/EmployeeCharts/Employe
 import LeftSideBar from "../../component/organisms/LeftSideBar";
 import ProfilePhoto from "../../component/atoms/ProfilePhoto";
 import PersonnelTable from "../../component/atoms/PersonnelTable";
-import { Button, FloatButton, Input, Space } from "antd";
+import { Button, FloatButton, Input, Modal, Space } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { Form } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { MyDispatch, MyUseSelector } from "../../store";
-import { fetchAddEmployee } from "../../store/feature/userSlice";
+import { fetchAddEmployee, fetchGetMyEmployees } from "../../store/feature/userSlice";
 
 function ManagePersonnel() {
   const dispatch = useDispatch<MyDispatch>();
   const manager = MyUseSelector((store)=> store.user.user)
   const [isAddPersonnel, setIsAddPersonnel] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
 
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -28,6 +29,7 @@ function ManagePersonnel() {
 const [tempRePassword, setTempRePassword] = useState("");
   const isDisabled = name === "" || surname === "" || email === "" || tempPassword === "" || tempRePassword=== "";
 const addEmployee = () =>{
+  setConfirmLoading(true)
   if (tempPassword !== tempRePassword) {
     Swal.fire({
       title: "Error",
@@ -50,7 +52,14 @@ const addEmployee = () =>{
       password: tempPassword,
       repassword: tempRePassword,
       token: token?token:""
-    }))
+    })).then(data=> {
+      setConfirmLoading(false);
+      setIsAddPersonnel(false);
+
+      if (data.payload.code === 200){
+        dispatch(fetchGetMyEmployees())
+      }
+    })
    }
 
 
@@ -74,15 +83,17 @@ const addEmployee = () =>{
             <h1 className="manager-dashboard-header">Manage Personnel</h1>
           </div>
           <div className="">
-            <FloatButton icon={<UserAddOutlined />} onClick={()=>setIsAddPersonnel(!isAddPersonnel)}  type='primary' tooltip={<div>Add a Personnel</div>} />
+            <FloatButton  style={{width:'50px', height:'50px'}} icon={<UserAddOutlined />} onClick={()=>setIsAddPersonnel(!isAddPersonnel)}  type='primary' tooltip={<div>Add a Personnel</div>} />
           </div>
           <div className="row">
             <PersonnelTable/>
           </div>
           {
-            isAddPersonnel?
-            <div className="row">
-              <Space direction="vertical" style={{color: 'white'}}>
+            
+            <Modal open={isAddPersonnel} onCancel={()=>setIsAddPersonnel(!isAddPersonnel)} onOk={addEmployee} confirmLoading={confirmLoading} okText='Add Personnel' okButtonProps={{
+              disabled: isDisabled
+            }} >
+              <Space direction="vertical" style={{fontWeight:'bold'}}>
                 <label htmlFor="name" >Employee Name</label>
                 <Input id="name" placeholder="John" value={name} onChange={(evt)=>{
                   setName(evt.target.value)
@@ -106,12 +117,9 @@ const addEmployee = () =>{
                 {
                   isDisabled?<label className="text-danger" >Please fill all the field</label>:<></>
                 }
-                
-                <Button onClick={addEmployee} type="primary" style={isDisabled?{backgroundColor:'gray', color:'white'}:{}} disabled={isDisabled} >Add Employee</Button>
               </Space>
-            </div>
-            :
-            <></>
+            </Modal>
+            
           }
           
         </div>

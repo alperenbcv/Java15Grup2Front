@@ -145,6 +145,26 @@ export const fetchAddEmployee = createAsyncThunk(
   }
 )
 
+interface DeactivateEmployee{
+  token: string,
+  employeeEmail: string
+}
+
+export const fetchDeactivateEmployee = createAsyncThunk(
+  "user/fetchDeactivateEmployee",
+  async(payload:DeactivateEmployee)=>{
+    const response = await fetch(`${apis.userService}/deactivate-employee`, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(data=> data.json())
+    return response
+
+  }
+)
+
 const userSlice = createSlice({
   name: "manager",
   initialState: initialAuthState,
@@ -256,6 +276,12 @@ const userSlice = createSlice({
           text: "başarısız"
         })
       }
+    })
+    builder.addCase(fetchDeactivateEmployee.fulfilled, (state, action:PayloadAction<IBaseResponse>)=>{
+      if (action.payload.code === 200) Swal.fire({
+        title: 'Employee deleted successfully',
+        icon: 'info'
+      })
     })
   },
 });

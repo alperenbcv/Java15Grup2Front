@@ -94,7 +94,7 @@ interface IAddExpense{
   export const fetchUploadFile = createAsyncThunk(
     "expense/fetchUploadFile",
     async (payload: FormData)=> {
-      const response = await fetch(`${apis.mediaFileService}/upload-file`, {
+      const response = await fetch(`${apis.mediaFileService}/upload-media`, {
         method: "POST",
         body: payload
       }).then((data) => data.json());

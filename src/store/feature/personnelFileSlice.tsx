@@ -44,7 +44,7 @@ export const fetchGetFiles = createAsyncThunk(
 );
 
 export const fetchUploadPersonnelFile = createAsyncThunk(
-    'comment/fetchGetComment',
+    'personnelFile/fetchUploadPersonnelFile',
     async (payload:FormData) => {
         const response = await fetch(`${apis.mediaFileService}/upload-file`, {
             method: 'POST',
@@ -61,7 +61,7 @@ export const fetchUploadPersonnelFile = createAsyncThunk(
 
 // Slice: State yönetimi
 const personnelFileSlice = createSlice({
-    name: 'company',
+    name: 'personnelFile',
     initialState: initialPersonnelFileState,
     reducers: {
         
