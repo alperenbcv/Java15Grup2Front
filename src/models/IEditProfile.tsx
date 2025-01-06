@@ -4,5 +4,6 @@ export interface IEditProfile{
     phoneNumber: string,
     address: string,
     gender: string,
+    department: string,
     birthDate: number
 }

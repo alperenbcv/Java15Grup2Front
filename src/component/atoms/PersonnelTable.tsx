@@ -3,11 +3,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import { MyDispatch, MyUseSelector } from '../../store';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchGetMyEmployees } from '../../store/feature/userSlice';
+import { fetchDeactivateEmployee, fetchGetMyEmployees } from '../../store/feature/userSlice';
 import Swal from 'sweetalert2';
 import { IProfile } from '../../models/IProfile';
 import { FilterDropdownProps } from 'antd/es/table/interface';
-import { SearchOutlined } from '@ant-design/icons';
+import { DeleteOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 
 function PersonnelTable() {
@@ -22,7 +22,22 @@ function PersonnelTable() {
         }
         else navigate("/manager-dashboard")
     },[])
-  
+    const deActivate = (email: string) =>{
+      const token = localStorage.getItem("token");
+      dispatch(fetchDeactivateEmployee({
+        token: token?token:"",
+        employeeEmail: email
+      })).then(data=>{
+        if(data.payload.code === 200){
+          dispatch(fetchGetMyEmployees())
+        }
+      })
+    }
+
+    const addPersonnelFile = (email: string)=>{
+      
+    }
+
       const employeeListSource = employeeList.map((employee, idx)=> {
           return(
           {
@@ -182,6 +197,23 @@ const getColumnSearchProps = (dataIndex: DataIndex): TableColumnType<DataType> =
                 title: "Department",
                 dataIndex: "employee",
                 render: (employee: IProfile) => employee.department
+              },
+              {
+                title: "Deactivate",
+                dataIndex: "employee",
+                render: (employee: IProfile) => 
+                <div style={{display: 'flex' , justifyContent: 'center'}}>
+                  <Button color='danger' variant='solid' icon={<DeleteOutlined />} onClick={(evt)=>deActivate(employee.email)} />
+                </div>
+                
+              },
+              {
+                title: "Add Personnel File",
+                dataIndex: "employee",
+                render: (employee: IProfile) => 
+                <div style={{display: 'flex' , justifyContent: 'center'}}>
+                    <Button color='cyan' variant='solid' icon={<PlusOutlined />} onClick={(evt)=>addPersonnelFile(employee.email)} />
+                </div> 
               }
             ];
             

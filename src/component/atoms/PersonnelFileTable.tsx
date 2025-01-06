@@ -14,7 +14,32 @@ import { IPersonnelFile } from '../../models/IPersonnelFile';
 import { text } from 'stream/consumers';
 
 function PersonnelFileTable() {
+     const openPdf = async (fileUrl: string| undefined)=>{
     
+          const response = await fetch(fileUrl?fileUrl:"");
+          if (!response.ok){
+            Swal.fire({
+              title: 'Unable to fetch pdf file',
+              icon:'error'
+            })
+            return
+          }
+          else {
+            const blob = await response.blob();
+    
+            const pdfUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = pdfUrl;
+    
+            a.download = 'expensePdf.pdf'
+    
+            document.body.appendChild(a);
+            a.click()
+            document.body.removeChild(a);
+    
+            window.URL.revokeObjectURL(pdfUrl);
+          }
+        }
     const uploadNewFile = async (oldFile: IPersonnelFile)=>{
         const  {value: file} = await Swal.fire({
                     title: "Upload New File",
@@ -36,7 +61,11 @@ function PersonnelFileTable() {
                 formData.append("fileName", oldFile.fileName)
                 formData.append("oldFileId", oldFile.id)
 
-                dispatch(fetchUploadPersonnelFile(formData))
+                dispatch(fetchUploadPersonnelFile(formData)).then(data=>{
+                    if (data.payload.code === 200){
+                        dispatch(fetchGetFiles())
+                    }
+                })
             }
 
     }
@@ -104,7 +133,7 @@ function PersonnelFileTable() {
                   title: 'File',
                   dataIndex: 'personnelFile',
                   render: (personnelFile: IPersonnelFile) => (<Space>
-                    <Button onClick={(evt)=>window.open(personnelFile.fileUrl, '_blank')} size='large' type='primary' icon={<FilePdfOutlined />}></Button> 
+                    <Button onClick={(evt)=>openPdf(personnelFile.fileUrl)} size='large' type='primary' icon={<FilePdfOutlined />}></Button> 
                     <Button onClick={()=>uploadNewFile(personnelFile)} size='large' type='default' style={{backgroundColor:'orange', color:'white'}} icon={<UndoOutlined />} ></Button> 
                     </Space>  )             
               },{

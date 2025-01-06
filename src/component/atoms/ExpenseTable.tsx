@@ -43,7 +43,32 @@ function ExpenseTable() {
                 })
       }
     };
+    const openPdf = async (fileUrl: string| undefined)=>{
 
+      const response = await fetch(fileUrl?fileUrl:"");
+      if (!response.ok){
+        Swal.fire({
+          title: 'Unable to fetch pdf file',
+          icon:'error'
+        })
+        return
+      }
+      else {
+        const blob = await response.blob();
+
+        const pdfUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = pdfUrl;
+
+        a.download = 'expensePdf.pdf'
+
+        document.body.appendChild(a);
+        a.click()
+        document.body.removeChild(a);
+
+        window.URL.revokeObjectURL(pdfUrl);
+      }
+    }
     const inputOptions = new Promise((resolve) => {
         setTimeout(() => {
           resolve({
@@ -148,7 +173,7 @@ function ExpenseTable() {
                 dataIndex: "expense",
                  render: (record: IExpense) => (<Space size="middle" direction='horizontal'>
                     {record.imageUrl?(<Button onClick={(evt)=>window.open(record.imageUrl, '_blank')} size='large' type='primary' icon={<FileImageOutlined />}></Button>):<Button size='large' type='dashed' icon={<FileImageOutlined/>} disabled></Button> }
-                    {record.fileUrl?(<Button onClick={(evt)=>window.open(record.fileUrl, '_blank')} size='large' type='primary' icon={<FilePdfOutlined />}></Button>):<Button size='large' type='dashed' icon={<FilePdfOutlined />} disabled></Button> }
+                    {record.fileUrl?(<Button onClick={()=>openPdf(record.fileUrl)} size='large' type='primary' icon={<FilePdfOutlined />}></Button>):<Button size='large' type='dashed' icon={<FilePdfOutlined />} disabled></Button> }
                     {role == "EMPLOYEE" && record.expenseState == "PENDING"?<Button style={{backgroundColor: 'green', color: 'white'}} onClick={(evt)=>addFile(record)} icon={<PlusOutlined />} type='link' ></Button>:<></>}
                     </Space>)
                  
