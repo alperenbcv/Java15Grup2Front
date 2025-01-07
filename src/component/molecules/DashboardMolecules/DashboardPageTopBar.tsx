@@ -27,7 +27,7 @@ function DashboardPageTopBar() {
         </div>
         <div className="col-4">
         <button className='btn dropdown-toggle' data-bs-toggle="dropdown" aria-expanded="false" style={{paddingTop: "0px", paddingLeft: "0px"}}>
-          <img className="profile-img-topbar"src={manager.pictureUrl} alt="profile-photo" style={{width: "40px", height: "40px", paddingTop: "0px", paddingLeft: "0px"}}/>
+          <img className="profile-img-topbar"src={manager.pictureUrl?manager.pictureUrl:'https://static.vecteezy.com/system/resources/previews/021/548/095/original/default-profile-picture-avatar-user-avatar-icon-person-icon-head-icon-profile-picture-icons-default-anonymous-user-male-and-female-businessman-photo-placeholder-social-network-avatar-portrait-free-vector.jpg'} alt="profile-photo" style={{width: "40px", height: "40px", paddingTop: "0px", paddingLeft: "0px"}}/>
             </button>
               <ul className="dropdown-menu" >
                 <li><a  onClick={(evt)=>{localStorage.removeItem("token");userLogout();navigate("/")}} className="dropdown-item header-item hover-item"><i className="fa-solid fa-user-check" style={{color:'white', padding:'5px'}}></i><span className="sign-in-text"style={{color:'white'}}>Log Out</span></a></li>
