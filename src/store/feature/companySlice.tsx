@@ -19,7 +19,7 @@ const initialAuthState: ICompanyState = {
     companyNameList: []
 };
 
-// Async Thunk: API isteği
+
 export const fetchCompanyRegister = createAsyncThunk<IBaseResponse, ICompanyRegisterRequest>(
     'auth/fetchCompanyRegister',
     async (payload: ICompanyRegisterRequest) => {
@@ -49,7 +49,6 @@ export const fetchCompanyList = createAsyncThunk<IBaseResponse>(
 );
 
 
-// Slice: State yönetimi
 const companySlice = createSlice({
     name: 'company',
     initialState: initialAuthState,

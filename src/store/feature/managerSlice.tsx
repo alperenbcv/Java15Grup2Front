@@ -5,13 +5,22 @@ import { IBaseResponse } from "../../models/IBaseResponse";
 import swal from "sweetalert";
 import { IManagerRegisterRequest } from "../../models/IManagerRegisterRequest";
 import { ILoginRequest } from "../../models/ILoginRequest";
+import { IEmployeeListDto } from "../../models/IEmployeeListDto";
+import { IManagerCardRequest } from "../../models/IManagerCardRequest";
 
 const initialAuthState = {
     isAuth: false,
     isLoginLoading: false,
     isRegisterLoading: false,
     manager: {},
-    isActivationLoading: false
+    isActivationLoading: false,
+    userType: null,
+    isEmployeeListLoading: false,
+    employeeList: [] as IEmployeeListDto[],
+    managerCard: {} as IManagerCardRequest,
+    isManagerCardLoading : false,
+    isRecoverMailLoading: false,
+    isPasswordRecoveryLoading: false
 };
 
 
@@ -44,6 +53,22 @@ export const fetchManagerLogin = createAsyncThunk(
     }
 )
 
+export const fetchEmployeeList = createAsyncThunk<IBaseResponse, void>(
+    'auth/fetchEmployeeList',
+    async () => {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${apis.authManagerService}/get-employee-list`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: token,
+        }).then((data) => data.json());
+        return response;
+    }
+);
+
+
 export const fetchManagerRegister = createAsyncThunk<IBaseResponse, IManagerRegisterRequest>(
     'auth/fetchManagerRegister',
     async (payload: IManagerRegisterRequest) => {
@@ -55,6 +80,44 @@ export const fetchManagerRegister = createAsyncThunk<IBaseResponse, IManagerRegi
         return (await response.json()) as IBaseResponse;
     }
 );
+
+export const fetchManagerCard = createAsyncThunk<IBaseResponse, void>(
+    'auth/fetchManagerCard',
+    async () => {
+        const token = localStorage.getItem('token'); // Token'i al
+        const response = await fetch(`${apis.authManagerService}/get-manager-card`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: token ,
+        });
+        return (await response.json()) as IBaseResponse;
+    }
+);
+
+export const fetchForgotPassword = createAsyncThunk<IBaseResponse, string>(
+    'auth/fetchForgotPassword',
+    async (payload: string) => {
+        const response = await fetch(`${apis.authManagerService}/send-recovery-mail`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: payload, // Email'i JSON formatında gönderiyoruz
+        });
+        return (await response.json()) as IBaseResponse;
+    }
+);
+
+export const fetchPasswordRecovery = createAsyncThunk<IBaseResponse, { mail: string; password: string; rePassword: string }>(
+    'auth/fetchPasswordRecovery',
+    async (payload) => {
+        const response = await fetch(`${apis.authManagerService}/password-recovery`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        });
+        return (await response.json()) as IBaseResponse;
+    }
+);
+
 
 const managerSlice = createSlice({
     name: 'manager',
@@ -104,6 +167,46 @@ const managerSlice = createSlice({
             state.isActivationLoading = false;
             swal('Error', 'Activation failed!', 'error');
         });
+        builder.addCase(fetchEmployeeList.pending, (state) => {
+                    state.isEmployeeListLoading = true;
+                });
+        builder.addCase(fetchEmployeeList.fulfilled, (state, action) => {
+                    state.isEmployeeListLoading = false;
+                    state.employeeList = action.payload.data; 
+                });
+        builder.addCase(fetchEmployeeList.rejected, (state, action) => {
+                    state.isEmployeeListLoading = false;
+                });
+        builder.addCase(fetchManagerCard.pending, (state) => {
+                    state.isManagerCardLoading = true;
+                });
+        builder.addCase(fetchManagerCard.fulfilled, (state, action) => {
+                    state.isManagerCardLoading = false;
+                    state.managerCard = action.payload.data; 
+                });
+        builder.addCase(fetchManagerCard.rejected, (state, action) => {
+                    state.isManagerCardLoading = false;
+                });
+        builder.addCase(fetchForgotPassword.pending, (state) => {
+                    state.isRecoverMailLoading = true;
+                });
+        builder.addCase(fetchForgotPassword.fulfilled, (state, action) => {
+                    state.isRecoverMailLoading = false;
+                });
+        builder.addCase(fetchForgotPassword.rejected, (state, action) => {
+                    state.isRecoverMailLoading = false;
+                });       
+        builder.addCase(fetchPasswordRecovery.pending, (state) => {
+                    state.isPasswordRecoveryLoading = true;
+                });
+        builder.addCase(fetchPasswordRecovery.fulfilled, (state, action) => {
+                    state.isPasswordRecoveryLoading = false;
+                    swal('Success', action.payload.message || 'Password recovery successful!', 'success');
+                });
+        builder.addCase(fetchPasswordRecovery.rejected, (state, action) => {
+                    state.isPasswordRecoveryLoading = false;
+                    swal('Error');
+                });            
     }
 });
 

@@ -1,9 +1,5 @@
 import React from 'react'
-import ManagerCard from '../component/atoms/ManagerCard';
 import DashboardPageTopBar from '../component/molecules/DashboardMolecules/DashboardPageTopBar';
-import EmployeeLeaveChart from '../component/molecules/EmployeeCharts/EmployeeLeaveChart';
-import EmployeeByDepartmantChart from '../component/molecules/ManagerCharts/EmployeeByDepartmantChart';
-import EmployeeDetailsChart from '../component/molecules/ManagerCharts/EmployeeDetailsChart';
 import ManagerDashboardLeftBar from '../component/organisms/ManagerDashboardLeftBar';
 import EmployeeOpsList from '../component/molecules/EmpOpsMolecules/EmployeeOpsList';
 

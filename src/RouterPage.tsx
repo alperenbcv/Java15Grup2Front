@@ -10,6 +10,11 @@ import EmployeeDashboardPage from './pages/EmployeeDashboardPage'
 import CompanyRegisterPage from './pages/CompanyRegisterPage'
 import ActivationPage from './pages/ActivationPage'
 import ManagerEmployeeOpsPage from './pages/ManagerEmployeeOpsPage'
+import EmployeeActivationPage from './pages/EmployeeActivationPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import PasswordRecoveryPage from './pages/PasswordRecoveryPage'
+import ManagerShiftOperations from './pages/ManagerShiftOperations'
+import EmployeeShifts from './pages/EmployeeShifts'
 
 function RouterPage() {
   return (
@@ -24,7 +29,12 @@ function RouterPage() {
         <Route path='/employee-dashboard' element={<EmployeeDashboardPage/>}/>
         <Route path='/company-register' element={<CompanyRegisterPage/>}/>
         <Route path='/activate' element={<ActivationPage/>}/>
-        <Route path='employee-ops' element={<ManagerEmployeeOpsPage/>}/>
+        <Route path='/employee-ops' element={<ManagerEmployeeOpsPage/>}/>
+        <Route path = '/activate-employee' element={<EmployeeActivationPage/>}/>
+        <Route path = '/forgot-password' element={<ForgotPasswordPage/>}/>
+        <Route path = '/password-recovery' element={<PasswordRecoveryPage/>}/>
+        <Route path = '/shift-ops' element={<ManagerShiftOperations/>}/>
+        <Route path = '/emp-shifts' element={<EmployeeShifts/>}/>
     </Routes>
     </BrowserRouter>
   )

@@ -12,8 +12,6 @@ function SignUpPageRightBody() {
   const dispatch = useDispatch<MyDispatch>();
   const navigate = useNavigate();
 
-  
- 
 
   const companyNameList = MyUseSelector(state => state.company.companyNameList);
   useEffect(() => {
@@ -63,7 +61,7 @@ function SignUpPageRightBody() {
       <div className="row-right-sign-up">
         <select className="form-select form-select-sign-up" aria-label="Default select example" onChange={evt => {setCompanyName(evt.target.value)}}
                value={companyName}>
-          <option selected>
+          <option value="" disabled>
             Company Name
           </option>
           {companyNameList?.map((name: string, index: number) => (
@@ -81,7 +79,7 @@ function SignUpPageRightBody() {
       <div className="row-right-sign-up">
         <select className="form-select form-select-sign-up" aria-label="Default select example" onChange={evt => {setDepartment(evt.target.value)}}
                value={department}>
-          <option selected disabled>
+          <option value="" disabled>
             Deparment
           </option>
           <option value="HR">HR</option>
@@ -178,7 +176,7 @@ function SignUpPageRightBody() {
       <div className="row-right-sign-up">
         <select className="form-select form-select-sign-up" aria-label="Default select example" onChange={evt => {setGender(evt.target.value)}}
                value={gender}>
-          <option selected disabled>
+          <option value="" disabled>
           Gender
           </option>
           <option value="MAN">MAN</option>

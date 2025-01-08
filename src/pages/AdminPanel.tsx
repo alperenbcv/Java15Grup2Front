@@ -26,6 +26,7 @@ function AdminPanel() {
             <ManagerDashboardSideButtons
               buttonName="Admin Panel"
               buttonIcon="fa-solid fa-user-tie"
+              navigation='/admin-panel'
             />
           </div>
         </div>

@@ -7,6 +7,7 @@ import EmployeeLeaveCountChart from '../component/molecules/ManagerCharts/Employ
 import TeamMembersCard from '../component/molecules/EmployeeDashboard/TeamMembersCard'
 import './EmployeeDashboardPage.css'
 import EmployeeNotificationCard from '../component/molecules/EmployeeDashboard/EmployeeNotificationCard'
+import EmployeeDashboardLeftBar from '../component/organisms/EmployeeDashboardLeftBar'
 
 function EmployeeDashboardPage() {
   return(
@@ -14,19 +15,7 @@ function EmployeeDashboardPage() {
   <div className="row">
     {/* Sol Side Bar */}
     <div className="col-2 manager-side-bar">
-      <div className="row">
-        <ManagerDashboardHeaderLogo />
-      </div>
-      <div className="row">
-        <span className="manager-menu-text">Main Menu</span>
-        <hr className="manager-dash-hr-1" />
-      </div>
-      <div className="row">
-        <ManagerDashboardSideButtons
-          buttonName="Employee Dashboard"
-          buttonIcon="fa-solid fa-user"
-        />
-      </div>
+      <EmployeeDashboardLeftBar/>
     </div>
 
     {/* Sağ Top Bar ve İçerik */}

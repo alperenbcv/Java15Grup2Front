@@ -7,6 +7,8 @@ import { MyDispatch } from '../../../store';
 import { fetchManagerLogin } from '../../../store/feature/managerSlice';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
+import jwtDecode from 'jwt-decode';
+import { fetchEmployeeLogin } from '../../../store/feature/employeeSlice';
 
 function SignInPageRightBody() {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,6 +17,7 @@ function SignInPageRightBody() {
   const [isPasswordEmpty, setIsPasswordEmpty] = useState(false)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [accountType, setAccountType] = useState('');
 
   const dispatch = useDispatch<MyDispatch>();
   const navigate = useNavigate();
@@ -28,11 +31,11 @@ function SignInPageRightBody() {
         }
         else
             setIsEmpty(false);
-        
+        if(accountType === 'MANAGER'){
             dispatch(fetchManagerLogin({ email, password })).then((data: any) => {
-                if (data.payload.code === 200) {
+                if (data.payload.code === 200 ) {
                     navigate('/manager-dashboard');
-                } else if (data.payload.code === 2004) { // Hesap aktif değilse
+                } else if (data.payload.code === 2004) {
                     console.log(data.payload.code)
                     swal('Account Inactive', 'Your account is not active. Please check your email for activation.', 'warning');
                 } else {
@@ -40,6 +43,19 @@ function SignInPageRightBody() {
                 }
             });
         }
+        else if(accountType==='EMPLOYEE'){
+            dispatch(fetchEmployeeLogin({email,password})).then((data:any) => {
+                if (data.payload.code === 200 ) {
+                    navigate('/employee-dashboard');
+                } else if (data.payload.code === 2004) {
+                    console.log(data.payload.code)
+                    swal('Account Inactive', 'Your account is not active. Please check your email for activation.', 'warning');
+                } else {
+                    swal('Login Failed', data.payload.message || 'Invalid email or password!', 'error');
+                }
+            });
+        }
+    }
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -60,6 +76,19 @@ function SignInPageRightBody() {
                      </div>
                     : null 
                 }
+            
+            <div className="row-right">
+                <label htmlFor="exampleFromControlInput1" className='form-label-email'>Account Type</label>
+            </div> 
+            <div className="row-right">
+            <select className="form-select form-select-sign-up" aria-label="Default select example" onChange={evt => {setAccountType(evt.target.value)}} value={accountType}>
+            <option value="" disabled>
+    Account Type
+  </option>
+  <option value="MANAGER">MANAGER</option>
+  <option value="EMPLOYEE">EMPLOYEE</option>
+</select>
+            </div>
             <div className="row-right">
                 <label htmlFor="exampleFormControlInput1" className="form-label-email">Email address</label>
             </div>
@@ -86,7 +115,7 @@ function SignInPageRightBody() {
                 
             </div>
             <div className="row">
-                <a className="forgot-link"href="">I forgot password</a>
+                <a className="forgot-link"href="/forgot-password">I forgot password</a>
                 <a className="forgot-link"href="/sign-up">I don't have an account</a>
             </div>
             <div className="row-btn">

@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { pageSlice, companySlice, managerSlice } from "./feature";
+import { pageSlice, companySlice, managerSlice, employeeSlice, shiftSlice } from "./feature";
 import { useSelector } from "react-redux";
 
 const store = configureStore({
     reducer: {
         page: pageSlice,
         company: companySlice,
-        manager : managerSlice
+        manager : managerSlice,
+        employee : employeeSlice,
+        shift : shiftSlice
     }
 })
 
