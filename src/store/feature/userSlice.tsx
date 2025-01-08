@@ -9,6 +9,8 @@ import { IProfile } from "../../models/IProfile";
 import { IEditProfile } from "../../models/IEditProfile";
 import Swal from "sweetalert2";
 import state from "sweetalert/typings/modules/state";
+import { IEmployeeRegisterRequest } from "../../models/IEmployeeRegisterRequest";
+import { IEmployeeActivationRequest } from "../../models/IEmployeeActivationRequest";
 
 interface IUserState {
   isAuth: boolean;
@@ -18,6 +20,11 @@ interface IUserState {
   user: IProfile;
   userList: IProfile[];
   isUserListLoading: boolean;
+  isActivationLoading: boolean;
+  isActivationSuccessful: boolean;
+  isRecoverMailLoading: boolean;
+  isPasswordRecoveryLoading: boolean;
+  
 }
 const initialAuthState: IUserState = {
   isAuth: false,
@@ -44,7 +51,11 @@ const initialAuthState: IUserState = {
     companyId: "none",
   },
   userList: [],
-  isUserListLoading: false
+  isUserListLoading: false,
+  isActivationLoading: false,
+  isActivationSuccessful: false,
+  isRecoverMailLoading: false,
+  isPasswordRecoveryLoading: false
 };
 
 export const fetchEditPhoto = createAsyncThunk(
@@ -145,6 +156,30 @@ export const fetchAddEmployee = createAsyncThunk(
   }
 )
 
+export const fetchEmployeeRegister = createAsyncThunk<IBaseResponse, IEmployeeRegisterRequest>(
+  'auth/fetchEmployeeRegister',
+  async (payload: IEmployeeRegisterRequest) => {
+      const response = await fetch(`${apis.authEmployeeService}/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+      }).then(data=>data.json())
+      return response as IBaseResponse;
+  }
+);
+
+export const fetchEmployeeActivation = createAsyncThunk<IBaseResponse, IEmployeeActivationRequest>(
+  'auth/fetchEmployeeActivation',
+  async (payload: IEmployeeActivationRequest) => {
+      const response = await fetch(`${apis.authEmployeeService}/activate-employee`, {
+          method: 'PUT',
+          headers: { 'Content-Type':'application/json'},
+          body: JSON.stringify(payload)
+      });
+      return (await response.json()) as IBaseResponse;
+  }
+);
+
 interface DeactivateEmployee{
   token: string,
   employeeEmail: string
@@ -164,6 +199,43 @@ export const fetchDeactivateEmployee = createAsyncThunk(
 
   }
 )
+
+export const fetchManagerActivation = createAsyncThunk<IBaseResponse, string>(
+  'auth/fetchActivation',
+  async (token: string) => {
+      const response = await fetch(`${apis.authManagerService}/activate?token=${token}`, {
+          method: 'PUT',
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      });
+      return (await response.json()) as IBaseResponse;
+  }
+);
+
+export const fetchForgotPassword = createAsyncThunk<IBaseResponse, string>(
+  'auth/fetchForgotPassword',
+  async (payload: string) => {
+      const response = await fetch(`${apis.authManagerService}/send-recovery-mail`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload,
+      });
+      return (await response.json()) as IBaseResponse;
+  }
+);
+
+export const fetchPasswordRecovery = createAsyncThunk<IBaseResponse, { mail: string; password: string; rePassword: string }>(
+  'auth/fetchPasswordRecovery',
+  async (payload) => {
+      const response = await fetch(`${apis.authManagerService}/password-recovery`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+      });
+      return (await response.json()) as IBaseResponse;
+  }
+);
 
 const userSlice = createSlice({
   name: "manager",
@@ -193,6 +265,41 @@ const userSlice = createSlice({
       state.isRegisterLoading = false;
       swal("Manager Register Error!");
     });
+    builder.addCase(fetchManagerActivation.pending, (state) => {
+      state.isActivationLoading = true;
+  });
+  builder.addCase(fetchManagerActivation.fulfilled, (state, action: PayloadAction<IBaseResponse>) => {
+      state.isActivationLoading = false;
+      if (action.payload.code === 200) {
+          swal('Success', 'Account activation successful!', 'success');
+      } else {
+          swal('Error', 'Activation token is invalid or expired!', 'error');
+      }
+  });
+  builder.addCase(fetchManagerActivation.rejected, (state) => {
+      state.isActivationLoading = false;
+      swal('Error', 'Activation failed!', 'error');
+  });
+  builder.addCase(fetchForgotPassword.pending, (state) => {
+    state.isRecoverMailLoading = true;
+});
+builder.addCase(fetchForgotPassword.fulfilled, (state, action) => {
+    state.isRecoverMailLoading = false;
+});
+builder.addCase(fetchForgotPassword.rejected, (state, action) => {
+    state.isRecoverMailLoading = false;
+});       
+builder.addCase(fetchPasswordRecovery.pending, (state) => {
+    state.isPasswordRecoveryLoading = true;
+});
+builder.addCase(fetchPasswordRecovery.fulfilled, (state, action) => {
+    state.isPasswordRecoveryLoading = false;
+    swal('Success', action.payload.message || 'Password recovery successful!', 'success');
+});
+builder.addCase(fetchPasswordRecovery.rejected, (state, action) => {
+    state.isPasswordRecoveryLoading = false;
+    swal('Error');
+});            
     builder.addCase(fetchLogin.pending, (state) => {
       state.isLoginLoading = true;
     });
@@ -277,6 +384,37 @@ const userSlice = createSlice({
         })
       }
     })
+    builder.addCase(fetchEmployeeRegister.pending, (state)=>{
+      state.isRegisterLoading=true;
+  });
+  builder.addCase(fetchEmployeeRegister.fulfilled, (state,action)=>{
+      state.isRegisterLoading=false;
+      if(action.payload.code === 200){
+          swal('Employee Register Successful');
+      } else {
+          swal('Employee Register Failed');
+      }
+  });
+  builder.addCase(fetchEmployeeRegister.rejected, (state)=>{
+      state.isRegisterLoading=false;
+      swal('Employee Register Error!')
+  });
+  builder.addCase(fetchEmployeeActivation.pending, (state)=>{
+    state.isActivationLoading=true;
+});
+builder.addCase(fetchEmployeeActivation.fulfilled, (state,action)=>{
+    state.isActivationLoading=false;
+    state.isActivationSuccessful=true;
+    if(action.payload.code === 200){
+        swal('Employee Activation Successful');
+    } else {
+        swal('Employee Activation Failed');
+    }
+});
+builder.addCase(fetchEmployeeActivation.rejected, (state)=>{
+    state.isActivationLoading=false;
+    swal('Employee Activation Error!')
+});
     builder.addCase(fetchDeactivateEmployee.fulfilled, (state, action:PayloadAction<IBaseResponse>)=>{
       if (action.payload.code === 200) Swal.fire({
         title: 'Employee deleted successfully',

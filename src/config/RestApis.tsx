@@ -9,6 +9,7 @@ const apis = {
     authCompanyService: server + '/auth/company',
     authManagerService: server + '/auth/manager',
     authEmployeeService: server + '/auth/employee',
+    authShiftService : server + '/auth/shift',
     authAdminService: server + '/auth/admin',
     leaveService: server + '/leave',
     possessionService: server + '/possession',
