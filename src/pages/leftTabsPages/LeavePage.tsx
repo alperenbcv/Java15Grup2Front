@@ -113,7 +113,7 @@ function LeavePage() {
               Description
             </label>
             <textarea
-              className="form-control" value={description} onChange={(evt)=>setDescription(evt.target.value)}
+              className="form-control w-100 " value={description} onChange={(evt)=>setDescription(evt.target.value)}
               id="exampleFormControlTextarea1"
               rows={3}
             ></textarea>

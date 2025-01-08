@@ -19,7 +19,7 @@ const initialAuthState = {
 };
 
 export const fetchShiftCreate = createAsyncThunk<IBaseResponse, IShiftCreateRequest>(
-    'auth/fetchShiftCreate',
+    'shift/fetchShiftCreate',
     async (payload: IShiftCreateRequest) => {
         const token = localStorage.getItem('token');
         if (!token) {
@@ -46,7 +46,7 @@ export const fetchShiftCreate = createAsyncThunk<IBaseResponse, IShiftCreateRequ
 
 
 export const fetchUpdateShift = createAsyncThunk<IBaseResponse, IShiftUpdateRequest>(
-  'auth/fetchShiftUpdate',
+  'shift/fetchUpdateShift',
   async (payload: IShiftUpdateRequest) => {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -71,7 +71,7 @@ export const fetchUpdateShift = createAsyncThunk<IBaseResponse, IShiftUpdateRequ
 );
 
 export const fetchShiftListEmployee = createAsyncThunk<IBaseResponse, { date: string }>(
-    'auth/fetchShiftListEmployee',
+    'shift/fetchShiftListEmployee',
     async (payload: { date: string }) => {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -96,7 +96,7 @@ export const fetchShiftListEmployee = createAsyncThunk<IBaseResponse, { date: st
   );
 
   export const fetchShiftListManager = createAsyncThunk<IBaseResponse, { date: string }>(
-    'auth/fetchShiftListManager',
+    'shift/fetchShiftListManager',
     async (payload: { date: string }) => {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -121,7 +121,7 @@ export const fetchShiftListEmployee = createAsyncThunk<IBaseResponse, { date: st
   );
 
   export const fetchDeleteShift = createAsyncThunk<IBaseResponse, { id: string }>(
-    'auth/fetchDeleteShift',
+    'shift/fetchDeleteShift',
     async (payload: { id: string }) => {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -147,7 +147,7 @@ export const fetchShiftListEmployee = createAsyncThunk<IBaseResponse, { date: st
   
 
 const shiftSlice = createSlice({
-    name: 'manager',
+    name: 'shift',
     initialState: initialAuthState,
     reducers: {
     },

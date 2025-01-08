@@ -65,15 +65,21 @@ function ManagerCard() {
         <div className="col-2">
           <img
             className="dashboard-img"
-            src={manager.pictureUrl}
+            src={manager.pictureUrl?manager.pictureUrl:'https://static.vecteezy.com/system/resources/previews/021/548/095/original/default-profile-picture-avatar-user-avatar-icon-person-icon-head-icon-profile-picture-icons-default-anonymous-user-male-and-female-businessman-photo-placeholder-social-network-avatar-portrait-free-vector.jpg'}
             alt="manager-img"
           />
         </div>
         <div className="col-8 manager-info-col">
-          <div className="row">
+          <div className="row">{
+            manager.role == "ADMIN"
+            ?
+            <h4 className="manager-name">
+              ADMIN
+            </h4>
+            :
             <h4 className="manager-name">
               {manager.name + " " + manager.surname}
-            </h4>
+            </h4>}
           </div>
           <div className="row">
             <h5 className="manager-title">{manager.title}</h5>

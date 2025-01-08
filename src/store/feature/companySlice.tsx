@@ -40,7 +40,7 @@ const initialAuthState: ICompanyState = {
 
 // Async Thunk: API isteği
 export const fetchCompanyRegister = createAsyncThunk<IBaseResponse, ICompanyRegisterRequest>(
-    'auth/fetchCompanyRegister',
+    'company/fetchCompanyRegister',
     async (payload: ICompanyRegisterRequest) => {
         const response = await fetch(`${apis.authCompanyService}/register`, {
             method: 'POST',
@@ -52,7 +52,7 @@ export const fetchCompanyRegister = createAsyncThunk<IBaseResponse, ICompanyRegi
 );
 
 export const fetchCompanyList = createAsyncThunk<IBaseResponse>(
-    'companyList',
+    'company/fetchCompanyList',
     async () => {
         const response = await fetch(`${apis.authCompanyService}/company-list`, {
             method: 'GET',

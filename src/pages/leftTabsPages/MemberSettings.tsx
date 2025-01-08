@@ -7,8 +7,10 @@ import EmployeeByDepartmantChart from "../../component/molecules/ManagerCharts/E
 import EmployeeLeaveChart from "../../component/molecules/EmployeeCharts/EmployeeLeaveChart";
 import LeftSideBar from "../../component/organisms/LeftSideBar";
 import ProfilePhoto from "../../component/atoms/ProfilePhoto";
+import { MyUseSelector } from "../../store";
 
 function MemberSettings() {
+  const userRole = MyUseSelector((store)=> store.user.user.role)
   return (
     <div className="container-fluid manager-dashboard-container">
       <div className="row">
@@ -30,9 +32,9 @@ function MemberSettings() {
             <div className="col manager-card-col">
               <ManagerCard />
             </div>
-            <div className="col manager-card-col">
+            {userRole == "ADMIN"?<></>:<div className="col manager-card-col">
               <ProfilePhoto/>
-            </div>
+            </div>}
           </div>
         </div>
       </div>

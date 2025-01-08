@@ -101,7 +101,7 @@ export const fetchGetAllComments = createAsyncThunk<IBaseResponse>(
 
 // Slice: State yönetimi
 const commentSlice = createSlice({
-    name: 'company',
+    name: 'comment',
     initialState: initialCommentState,
     reducers: {
         setComment: (state, action: PayloadAction<string>)=>{

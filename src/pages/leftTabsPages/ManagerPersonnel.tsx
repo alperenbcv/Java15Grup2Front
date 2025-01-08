@@ -1,25 +1,19 @@
-import React, { useState } from "react";
-import ManagerDashboardSideButtons from "../../component/molecules/LeftTabs/ManagerDashboardSideButtons";
+import React, { useEffect, useState } from "react";
 import DashboardPageTopBar from "../../component/molecules/DashboardMolecules/DashboardPageTopBar";
-import ManagerCard from "../../component/atoms/ManagerCard";
-import EmployeeDetailsChart from "../../component/molecules/ManagerCharts/EmployeeDetailsChart";
-import EmployeeByDepartmantChart from "../../component/molecules/ManagerCharts/EmployeeByDepartmantChart";
-import EmployeeLeaveChart from "../../component/molecules/EmployeeCharts/EmployeeLeaveChart";
 import LeftSideBar from "../../component/organisms/LeftSideBar";
-import ProfilePhoto from "../../component/atoms/ProfilePhoto";
 import PersonnelTable from "../../component/atoms/PersonnelTable";
 import { Button, FloatButton, Input, Modal, Space } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
-import { Form } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { MyDispatch, MyUseSelector } from "../../store";
-import { fetchAddEmployee, fetchEmployeeRegister, fetchGetMyEmployees } from "../../store/feature/userSlice";
+import { fetchAddEmployee, fetchEmployeeRegister, fetchGetMyEmployees, fetchGetProfile } from "../../store/feature/userSlice";
 import { IBaseResponse } from "../../models/IBaseResponse";
 import { unwrapResult } from "@reduxjs/toolkit";
 
 function ManagePersonnel() {
   const dispatch = useDispatch<MyDispatch>();
+
   const manager = MyUseSelector((store)=> store.user.user)
   const [isAddPersonnel, setIsAddPersonnel] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -31,6 +25,7 @@ function ManagePersonnel() {
   const [tempPassword, setTempPassword] = useState("");
 const [tempRePassword, setTempRePassword] = useState("");
   const isDisabled = name === "" || surname === "" || email === "" || department === "";
+
 const addEmployee = () =>{
   setConfirmLoading(true)
   if (tempPassword !== tempRePassword) {

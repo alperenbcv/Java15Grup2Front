@@ -17,7 +17,7 @@ function ManagerDashboardSideButton(props:SideButton) {
     const navigate = useNavigate();
     useEffect(()=>{
       setButon(((!role && !excludeRole) || (role && role === user.user.role) || (excludeRole && excludeRole !== user.user.role))?<a onClick={evt=>navigate("/"+buttonLink)}>
-      <button className='btn side-btn-manager'><i className={buttonIcon} style={{color:'white'}}></i><span className='manager-btn-text'>{buttonName}</span></button>
+      <button className='btn side-btn-manager w-100'><i className={buttonIcon} style={{color:'white'}}></i><span className='manager-btn-text'>{buttonName}</span></button>
       </a>:<></>
     )}, [user.user, user.isProfileLoading])
   

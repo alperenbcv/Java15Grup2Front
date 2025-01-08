@@ -14,12 +14,35 @@ function ManageExpense() {
     const user = MyUseSelector((store)=> store.user.user);
     const dispatch = useDispatch<MyDispatch>();
     const [isAltered, setIsAltered] = useState(false);
-    
+    const numberPattern = /^[0-9]+$/;
     const [isAddExpense, setIsAddExpense] = useState(false);
 
     const [title, setTitle] = useState("");
-    const [cost, setCost] = useState("");
+    const [cost, setCost] = useState(0);
     const [description, setDescription] = useState("");
+
+      const role = user.role
+        useEffect(()=>{
+            if (role == "EMPLOYEE")
+                dispatch(fetchGetMyExpenses())
+            else if (role == "MANAGER")
+                dispatch(fetchGetMyEmployeesExpenses())
+        },[role])
+
+    const handleSetCost = (newValue: any) => {
+      // Check if the new value is a valid number (you can adjust the check as needed)
+      
+      if (newValue != ""){
+        const isValidNumber = numberPattern.test(newValue);
+        const newCost = !isValidNumber ? cost : newValue;
+        setCost(newCost);
+      }
+      else{
+        setCost(0);
+      }
+      
+    };
+
 
     const addExpense = ()=>{
       const token = localStorage.getItem("token");
@@ -66,7 +89,7 @@ function ManageExpense() {
                   <Space direction='vertical' >
                   <Input onChange={evt=> setTitle(evt.target.value)} value={title} placeholder='Title'  />
                   <Input onChange={evt=> setDescription(evt.target.value)} value={description} placeholder='Description' />
-                  <Input type='number' onChange={evt=> setCost(evt.target.value)} value={cost} placeholder='Cost' />
+                  <Input  onChange={evt=>handleSetCost(evt.target.value)} value={cost} placeholder='Cost' />
                   <Button type='primary' onClick={(evt)=>addExpense()}>Add Expense</Button>
                   </Space>
                   
