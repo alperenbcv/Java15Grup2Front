@@ -14,7 +14,9 @@ import { Form } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { MyDispatch, MyUseSelector } from "../../store";
-import { fetchAddEmployee, fetchGetMyEmployees } from "../../store/feature/userSlice";
+import { fetchAddEmployee, fetchEmployeeRegister, fetchGetMyEmployees } from "../../store/feature/userSlice";
+import { IBaseResponse } from "../../models/IBaseResponse";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 function ManagePersonnel() {
   const dispatch = useDispatch<MyDispatch>();
@@ -25,9 +27,10 @@ function ManagePersonnel() {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
+  const [department, setDepartment] = useState("")
   const [tempPassword, setTempPassword] = useState("");
 const [tempRePassword, setTempRePassword] = useState("");
-  const isDisabled = name === "" || surname === "" || email === "" || tempPassword === "" || tempRePassword=== "";
+  const isDisabled = name === "" || surname === "" || email === "" || department === "";
 const addEmployee = () =>{
   setConfirmLoading(true)
   if (tempPassword !== tempRePassword) {
@@ -45,21 +48,30 @@ const addEmployee = () =>{
   }
    else{
     const token = localStorage.getItem("token");
-    dispatch(fetchAddEmployee({
+    dispatch(fetchEmployeeRegister({
       name: name,
       surname: surname,
       email: email,
-      password: tempPassword,
-      repassword: tempRePassword,
-      token: token?token:""
-    })).then(data=> {
-      setConfirmLoading(false);
-      setIsAddPersonnel(false);
-
-      if (data.payload.code === 200){
-        dispatch(fetchGetMyEmployees())
-      }
-    })
+      department: department,
+      token: token ? token : "",
+    }))
+      .then(unwrapResult)
+      .then((payload: IBaseResponse) => {
+        setConfirmLoading(false);
+        setIsAddPersonnel(false);
+    
+        if (payload.code === 200) {
+          dispatch(fetchGetMyEmployees());
+        }
+      })
+      .catch((error) => {
+        setConfirmLoading(false);
+        Swal.fire({
+          title: "Error",
+          text: error.message,
+          icon: "error",
+        });
+      });
    }
 
 
@@ -106,14 +118,25 @@ const addEmployee = () =>{
                 <Input type="email" id="e-mail" placeholder="example@mail.com" value={email} onChange={(evt)=>{
                   setEmail(evt.target.value)
                 }} />
-                <label htmlFor="pass" >Temporary Password</label>
-                <Input type="password" id="pass" placeholder="********" value={tempPassword} onChange={(evt)=>{
-                  setTempPassword(evt.target.value)
-                }} />
-                <label htmlFor="rePass" >Repeat Password</label>
-                <Input type="password" id="rePass" placeholder="********" value={tempRePassword} onChange={(evt)=>{
-                  setTempRePassword(evt.target.value)
-                }} />
+                <label htmlFor="department" className="form-label">
+                  Department
+                </label>
+                <select className="form-select" id="department" onChange={evt => {setDepartment(evt.target.value)}}
+               value={department}>
+                  <option selected disabled>
+                    Deparment
+                  </option>
+                  <option value="HR">HR</option>
+                  <option value="FINANCE">FINANCE</option>
+                  <option value="MARKETING">MARKETING</option>
+                  <option value="SALES">SALES</option>
+                  <option value="IT">IT</option>
+                  <option value="LEGAL">LEGAL</option>
+                  <option value="RESEARCH">RESEARCH</option>
+                  <option value="ENGINEERING">ENGINEERING</option>
+                  <option value="ADMINISTRATION">ADMINISTRATION</option>
+                  <option value="PRODUCTION">PRODUCTION</option>
+                </select>
                 {
                   isDisabled?<label className="text-danger" >Please fill all the field</label>:<></>
                 }

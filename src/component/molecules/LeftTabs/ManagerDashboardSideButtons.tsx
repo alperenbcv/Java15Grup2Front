@@ -29,8 +29,9 @@ function ManagerDashboardSideButtons() {
           </div>
           <div className="row">
             <ManagerDashboardSideButton
-              buttonName="Manage Vardiyas"
+              buttonName="Manage Shifts"
               buttonIcon="fa-solid fa-chalkboard-user"
+              buttonLink='shift-ops'
               role='MANAGER'
             />
           </div>

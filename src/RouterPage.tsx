@@ -22,6 +22,12 @@ import CompanyComment from "./pages/leftTabsPages/CompanyComment";
 import Comments from "./pages/Comments";
 import CommentDetail from "./pages/CommentDetail";
 import PersonnelFileManagement from "./pages/leftTabsPages/PersonnelFileManagement";
+import ManagerShiftOperations from "./pages/ManagerShiftOperations";
+import EmployeeShifts from "./pages/EmployeeShifts";
+import ActivationPage from "./pages/ActivationPage";
+import EmployeeActivationPage from "./pages/EmployeeActivationPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import PasswordRecoveryPage from "./pages/PasswordRecoveryPage";
 
 function RouterPage() {
   const dispatch = useDispatch<MyDispatch>();
@@ -57,6 +63,12 @@ function RouterPage() {
         <Route path="/comments" element={<Comments/>}/>
         <Route path="/comment-detail" element={<CommentDetail/>}/>
         <Route path="/personnel-file" element={isLogin?(isManager?<PersonnelFileManagement/>:<EmployeeDashboardPage/>):<SignInPage/>}/>
+        <Route path = '/shift-ops' element={isLogin?<ManagerShiftOperations/>:<SignInPage/>}/>
+        <Route path = '/emp-shifts' element={isLogin?<EmployeeShifts/>:<SignInPage/>}/>
+        <Route path = '/activate-employee' element={<EmployeeActivationPage/>}/>
+        <Route path = '/forgot-password' element={<ForgotPasswordPage/>}/>
+        <Route path = '/password-recovery' element={<PasswordRecoveryPage/>}/>
+        <Route path='/activate' element={<ActivationPage/>}/>
       </Routes>
     </BrowserRouter>
   );
