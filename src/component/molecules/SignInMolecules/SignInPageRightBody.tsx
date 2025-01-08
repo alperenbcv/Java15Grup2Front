@@ -10,6 +10,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { IBaseResponse } from "../../../models/IBaseResponse";
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Button, Input, Space } from 'antd';
+import Swal from "sweetalert2";
 
 function SignInPageRightBody() {
   const [isEmpty, setIsEmpty] = useState(false);
@@ -33,6 +34,7 @@ function SignInPageRightBody() {
         dispatch(fetchGetProfile());
         navigate("/manager-dashboard");
       }
+      
     });
   };
 

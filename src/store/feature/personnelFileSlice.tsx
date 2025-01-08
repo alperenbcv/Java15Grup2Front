@@ -57,6 +57,19 @@ export const fetchUploadPersonnelFile = createAsyncThunk(
     }
 );
 
+export const fetchAddNewPersonnelFile = createAsyncThunk(
+    'personnelFile/fetchAddNewPersonnelFile',
+    async (payload:FormData) => {
+        const response = await fetch(`${apis.mediaFileService}/add-new-personnel-file`, {
+            method: 'POST',
+            body: payload
+        }).then(data=> data.json());
+
+        
+
+        return response
+    }
+);
 
 
 // Slice: State yönetimi
@@ -80,6 +93,11 @@ const personnelFileSlice = createSlice({
                 Swal.fire("dosya başarıyla değiştirildi")
             }
             else Swal.fire("dosya değiştirilirken bir hata oluştu")
+        })
+        builder.addCase(fetchAddNewPersonnelFile.fulfilled, (state, action:PayloadAction<IBaseResponse>)=>{
+            if (action.payload.code === 200){
+                Swal.fire("dosya başarıyla oluşturuldu")
+            }
         })
     }
    
