@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function DashboardHeaderLogo() {
   const navigate = useNavigate();
   return (
-    <div className='col-2 logo-col-manager' >
+    <div className='col d-flex justify-content-center logo-col-manager ' >
       <img className='logo-image-dashboard-manager' onClick={evt => navigate('/manager-dashboard')} src={logo} alt="Logo" />
       <h1 className='logo-text-dashboard-manager' onClick={evt => navigate('/manager-dashboard')}>CoreHR.</h1>
     </div>

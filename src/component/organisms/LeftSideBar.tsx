@@ -7,7 +7,7 @@ function LeftSideBar() {
   return (
     <div className="col-2 manager-side-bar">
       <div className=''>
-      <div className="row">
+      <div className="row d-flex justify-content-center">
             <DashboardHeaderLogo />
           </div>
           <div className="row">
