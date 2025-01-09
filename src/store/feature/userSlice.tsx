@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import state from "sweetalert/typings/modules/state";
 import { IEmployeeRegisterRequest } from "../../models/IEmployeeRegisterRequest";
 import { IEmployeeActivationRequest } from "../../models/IEmployeeActivationRequest";
+import { IChangePassword } from "../../models/IChangePassword";
 
 interface IUserState {
   isAuth: boolean;
@@ -24,6 +25,7 @@ interface IUserState {
   isActivationSuccessful: boolean;
   isRecoverMailLoading: boolean;
   isPasswordRecoveryLoading: boolean;
+  isPasswordChangeLoading : boolean;
 }
 const initialAuthState: IUserState = {
   isAuth: false,
@@ -55,6 +57,7 @@ const initialAuthState: IUserState = {
   isActivationSuccessful: false,
   isRecoverMailLoading: false,
   isPasswordRecoveryLoading: false,
+  isPasswordChangeLoading: false
 };
 
 export const fetchEditPhoto = createAsyncThunk(
@@ -131,6 +134,25 @@ export const fetchManagerRegister = createAsyncThunk<
   });
   return (await response.json()) as IBaseResponse;
 });
+
+export const fetchChangePassword = createAsyncThunk(
+  "auth/fetchChangePassword",
+  async (payload: IChangePassword) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${apis.authService}/password-change`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+    },
+      body: JSON.stringify(payload),
+    });
+    const data = await response.json();
+    return data;
+  }
+);
+
+
 
 export const fetchManagerByCommentId = createAsyncThunk(
   "auth/fetchManagerByCommentId",
@@ -460,6 +482,21 @@ const userSlice = createSlice({
     builder.addCase(fetchEmployeeActivation.rejected, (state) => {
       state.isActivationLoading = false;
       swal("Employee Activation Error!");
+    });
+    builder.addCase(fetchChangePassword.pending, (state) => {
+      state.isPasswordChangeLoading = true;
+    });
+    builder.addCase(fetchChangePassword.fulfilled, (state, action) => {
+      state.isPasswordChangeLoading = false;
+      if (action.payload.code === 200) {
+        swal("Password Change Successful");
+      } else {
+        swal("Password Change Failed");
+      }
+    });
+    builder.addCase(fetchChangePassword.rejected, (state) => {
+      state.isPasswordChangeLoading = false;
+      swal("Password Change Error!");
     });
     builder.addCase(
       fetchDeactivateEmployee.fulfilled,
