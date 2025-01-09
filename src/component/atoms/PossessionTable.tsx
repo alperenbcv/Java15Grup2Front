@@ -1,19 +1,26 @@
-import { Button, Space, Table, TableColumnsType, TableProps, Tag } from 'antd';
-import React from 'react'
+import { Button, Divider, Space, Table, TableColumnsType, TableProps, Tag } from 'antd';
+import React, { useEffect } from 'react'
 import { IPossession } from '../../models/IPossesion';
 import { useDispatch } from 'react-redux';
-import { MyDispatch } from '../../store';
+import { MyDispatch, MyUseSelector } from '../../store';
 import Swal from 'sweetalert2';
-import { fetchManagePossession } from '../../store/feature/possessionSlice';
+import { fetchGetMyPossessions, fetchManagePossession } from '../../store/feature/possessionSlice';
 import { render } from 'react-dom';
 
 interface IPossesionTableProps{
-    possessionList: IPossession[],
     role: string
 }
 
 function PossessionTable(props: IPossesionTableProps) {
-    const dispatch = useDispatch<MyDispatch>();
+  const dispatch = useDispatch<MyDispatch>();
+  const possessionList = MyUseSelector((store)=> store.possession.possessionList);
+  useEffect(()=>{
+      dispatch(fetchGetMyPossessions())
+      console.log('possList: ', possessionList)
+  },[props.role])
+  
+
+  
 
     const manageConfirmState = async (possessionId: string, confirmationState: string) => {
         const token = localStorage.getItem("token")
@@ -23,7 +30,11 @@ function PossessionTable(props: IPossesionTableProps) {
               itemId: possessionId,
               updatedState: confirmationState
             })
-          );
+          ).then(data=> {
+            if(data.payload.code === 200){
+              dispatch(fetchGetMyPossessions())
+            }
+          })
        
         }
 
@@ -81,7 +92,7 @@ function PossessionTable(props: IPossesionTableProps) {
         },
         {
             title: 'Actions',
-            dataIndex: "leave",
+            dataIndex: "possession",
             render: (record: IPossession) => record.confirmationState == "PENDING"? (
                 <Space size="middle">
                   <Button
@@ -109,7 +120,7 @@ function PossessionTable(props: IPossesionTableProps) {
         
       };
 
-    const possessionList = props.possessionList;
+    
     const possessionListSource = possessionList.map((possession, idx)=> {return(
         {
             possession: possession,
@@ -121,7 +132,8 @@ function PossessionTable(props: IPossesionTableProps) {
   return (
     <Table<DataType> columns={columns} dataSource={possessionListSource} onChange={onChange} />
 
-  )
+  ) 
+  
 }
 
 export default PossessionTable

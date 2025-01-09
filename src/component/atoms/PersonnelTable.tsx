@@ -34,16 +34,23 @@ import {
   fetchAddNewPersonnelFile,
   fetchUploadPersonnelFile,
 } from "../../store/feature/personnelFileSlice";
+import { fetchAddPossession } from "../../store/feature/possessionSlice";
 
 function PersonnelTable() {
   const user = MyUseSelector((store) => store.user.user);
   const employeeList = MyUseSelector((store) => store.user.userList);
   const navigate = useNavigate();
   const role = user.role;
+
   const [isAddPersonnelFile, setIsAddPersonnelFile] = useState(false);
   const [fileType, setFileType] = useState("");
   const [fileName, setFileName] = useState("");
   const [employee, setEmployee] = useState<IProfile>();
+
+  const [isAddPossession, setIsAddPossession] = useState(false);
+  const [title, setTitle] = useState("");
+  const[description, setDescription] = useState("")
+
   const dispatch = useDispatch<MyDispatch>();
   useEffect(() => {
     if (user.role == "MANAGER") {
@@ -107,7 +114,17 @@ function PersonnelTable() {
     });
   };
 
-  const addPossession = (email: string) => {};
+  const addPossession = () => {
+    const token = localStorage.getItem("token")
+    const mail = employee?.email
+    dispatch(fetchAddPossession({
+      title: title,
+      description: description,
+      personnelMail: mail?mail:"",
+      token: token?token:""
+    }))
+    setIsAddPossession(false)
+  };
 
   const employeeListSource = employeeList.map((employee, idx) => {
     return {
@@ -116,122 +133,15 @@ function PersonnelTable() {
     };
   });
 
-  const [searchText, setSearchText] = useState("");
-  const [searchedColumn, setSearchedColumn] = useState("");
-  const searchInput = useRef<InputRef>(null);
 
-  const handleSearch = (
-    selectedKeys: string[],
-    confirm: FilterDropdownProps["confirm"],
-    dataIndex: DataIndex
-  ) => {
-    confirm();
-    setSearchText(selectedKeys[0]);
-    setSearchedColumn(dataIndex);
-  };
 
-  const handleReset = (clearFilters: () => void) => {
-    clearFilters();
-    setSearchText("");
-  };
+  
 
   interface DataType {
     key: React.Key;
     employee: IProfile;
   }
-  type DataIndex = keyof DataType;
-  const getColumnSearchProps = (
-    dataIndex: DataIndex
-  ): TableColumnType<DataType> => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-      close,
-    }) => (
-      <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
-        <Input
-          ref={searchInput}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={(e) =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() =>
-            handleSearch(selectedKeys as string[], confirm, dataIndex)
-          }
-          style={{ marginBottom: 8, display: "block" }}
-        />
-        <Space>
-          <Button
-            type="primary"
-            onClick={() =>
-              handleSearch(selectedKeys as string[], confirm, dataIndex)
-            }
-            icon={<SearchOutlined />}
-            size="small"
-            style={{ width: 90 }}
-          >
-            Search
-          </Button>
-          <Button
-            onClick={() => clearFilters && handleReset(clearFilters)}
-            size="small"
-            style={{ width: 90 }}
-          >
-            Reset
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              confirm({ closeDropdown: false });
-              setSearchText((selectedKeys as string[])[0]);
-              setSearchedColumn(dataIndex);
-            }}
-          >
-            Filter
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              close();
-            }}
-          >
-            close
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: (filtered: boolean) => (
-      <SearchOutlined style={{ color: filtered ? "#1677ff" : undefined }} />
-    ),
-    onFilter: (value, record) =>
-      record[dataIndex]
-        .toString()
-        .toLowerCase()
-        .includes((value as string).toLowerCase()),
-    filterDropdownProps: {
-      onOpenChange(open) {
-        if (open) {
-          setTimeout(() => searchInput.current?.select(), 100);
-        }
-      },
-    },
-    render: (text) =>
-      searchedColumn === dataIndex ? (
-        <Highlighter
-          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
-          searchWords={[searchText]}
-          autoEscape
-          textToHighlight={text ? text.toString() : ""}
-        />
-      ) : (
-        text
-      ),
-  });
+  
   const columns: TableColumnsType<DataType> = [
     {
       title: "Profile Picture",
@@ -350,8 +260,7 @@ function PersonnelTable() {
           />
         </div>
       ),
-    },
-    {
+    }, {
       title: "Add Possession",
       dataIndex: "employee",
       render: (employee: IProfile) => (
@@ -360,11 +269,14 @@ function PersonnelTable() {
             color="volcano"
             variant="solid"
             icon={<PlusOutlined />}
-            onClick={(evt) => addPossession(employee.email)}
+            onClick={(evt) => {
+              setEmployee(employee)
+              setIsAddPossession(true)
+            }}
           />
         </div>
       ),
-    },
+    }
   ];
 
   const onChange: TableProps<DataType>["onChange"] = (
@@ -379,6 +291,33 @@ function PersonnelTable() {
   console.log(employeeListSource);
   return (
     <div>
+      <Modal
+        open={isAddPossession}
+        onCancel={() => setIsAddPossession(false)}
+        onOk={() => addPossession()}
+        okText="Add Possession"
+      >
+        <Space direction="vertical">
+          <label htmlFor="possessionTitle">Possession Title</label>
+          <Input
+            id="possessionTitle"
+            placeholder="possession title"
+            value={title}
+            onChange={(evt) => {
+              setTitle(evt.target.value);
+            }}
+          />
+          <label htmlFor="possessionDescription">Possession Description</label>
+          <Input
+            id="possessionDescription"
+            placeholder="possession description"
+            value={description}
+            onChange={(evt) => {
+              setDescription(evt.target.value);
+            }}
+          />
+        </Space>
+      </Modal>
       <Modal
         open={isAddPersonnelFile}
         onCancel={() => setIsAddPersonnelFile(false)}
