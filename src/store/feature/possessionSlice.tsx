@@ -60,11 +60,33 @@ export const fetchManagePossession = createAsyncThunk(
     }
   )
 
+  interface IAddPossession{
+    title: string,
+    description: string,
+    personnelMail: string,
+    token: string
+  }
+  export const fetchAddPossession = createAsyncThunk(
+    "possession/fetchAddPossession",
+    async (payload:IAddPossession)=>{
+      const response = await fetch(`${apis.possessionService}/add-possession`,{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+
+      }).then(data=>data.json())
+      return response
+})
+
 const possessionSlice = createSlice({
   name: "possession",
   initialState: initialPossessionSlice,
   reducers: {
-    
+    clearPossessions: (state)=>{
+      state.possessionList = []
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGetMyPossessions.pending, (state) =>{
@@ -78,8 +100,6 @@ const possessionSlice = createSlice({
         else {
             Swal.fire("Maalesef zimmetler yüklenirken bir hata oluştu")
         }
-        console.log(action.payload)
-
     })
     builder.addCase(fetchManagePossession.pending, (state)=>{
         state.isPossessionLoading = true
@@ -93,6 +113,15 @@ const possessionSlice = createSlice({
             Swal.fire("İşlem gerçekleştirilirken bir hatayla karşılaşıldı")
         }
     })
+    builder.addCase(fetchAddPossession.fulfilled, (state,action:PayloadAction<IBaseResponse>)=>{
+      if (action.payload.code === 200){
+        Swal.fire({
+          title: "Possession successfully added!",
+          icon: "success"
+        })
+      }
+    })
   },
 });
+export const {clearPossessions} = possessionSlice.actions
 export default possessionSlice.reducer;

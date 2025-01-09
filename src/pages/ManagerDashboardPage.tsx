@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ManagerDashboardPage.css";
 import DashboardPageTopBar from "../component/molecules/DashboardMolecules/DashboardPageTopBar";
 import EmployeeDetailsChart from "../component/molecules/ManagerCharts/EmployeeDetailsChart";
@@ -6,8 +6,13 @@ import EmployeeLeaveChart from "../component/molecules/EmployeeCharts/EmployeeLe
 import EmployeeByDepartmantChart from "../component/molecules/ManagerCharts/EmployeeByDepartmantChart";
 import ManagerCard from "../component/atoms/ManagerCard";
 import LeftSideBar from "../component/organisms/LeftSideBar";
+import { useDispatch } from "react-redux";
+import { MyDispatch, MyUseSelector } from "../store";
+import { clearPossessions } from "../store/feature/possessionSlice";
 
 function ManagerDashboardPage() {
+  
+
   return (
     <div className="container-fluid manager-dashboard-container">
       <div className="row">
