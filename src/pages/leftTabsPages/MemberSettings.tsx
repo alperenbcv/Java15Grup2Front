@@ -8,6 +8,7 @@ import EmployeeLeaveChart from "../../component/molecules/EmployeeCharts/Employe
 import LeftSideBar from "../../component/organisms/LeftSideBar";
 import ProfilePhoto from "../../component/atoms/ProfilePhoto";
 import { MyUseSelector } from "../../store";
+import PasswordChangeComp from "../../component/molecules/PasswordRecoverMolecules/PasswordChangeComp";
 
 function MemberSettings() {
   const userRole = MyUseSelector((store)=> store.user.user.role)
@@ -35,6 +36,11 @@ function MemberSettings() {
             {userRole == "ADMIN"?<></>:<div className="col manager-card-col">
               <ProfilePhoto/>
             </div>}
+          </div>
+          <div className="row">
+            <div className="col manager-card-col">
+              <PasswordChangeComp/>
+            </div>
           </div>
         </div>
       </div>

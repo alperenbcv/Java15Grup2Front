@@ -13,10 +13,9 @@ function AddShiftModal(props: IRefreshDate) {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [shiftType, setShiftType] = useState('MORNING_SHIFT');
-  const [emailList, setEmailList] = useState<string>(''); // Emailleri virgülle ayırmak için string türünde saklanıyor.
+  const [emailList, setEmailList] = useState<string>('');
 
   const createShift = async () => {
-    // Validation
     if (!startDate || !endDate || !shiftType) {
       Swal.fire('Error', 'All fields are required.', 'error');
       return;
