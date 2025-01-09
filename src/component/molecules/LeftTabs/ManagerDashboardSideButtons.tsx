@@ -88,6 +88,14 @@ function ManagerDashboardSideButtons() {
               role='MANAGER'
             />
           </div>
+          <div>
+            <ManagerDashboardSideButton
+            buttonIcon='fa-solid fa-cog'
+            buttonName='Employee Shifts'
+            buttonLink='emp-shifts'
+            role='EMPLOYEE'
+            />
+          </div>
           <div className="row">
             <ManagerDashboardSideButton
               buttonName="Dashboard"

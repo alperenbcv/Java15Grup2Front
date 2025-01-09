@@ -74,6 +74,7 @@ export const fetchShiftListEmployee = createAsyncThunk<IBaseResponse, { date: st
     'shift/fetchShiftListEmployee',
     async (payload: { date: string }) => {
       const token = localStorage.getItem('token');
+      
       if (!token) {
         throw new Error('No token found in localStorage');
       }
@@ -185,7 +186,6 @@ const shiftSlice = createSlice({
       });
       builder.addCase(fetchShiftListEmployee.fulfilled, (state, action) => {
           state.isEmpShiftListLoading = false;
-          
           state.empShiftList = action.payload.data;
           console.log(action.payload.data)
       });
