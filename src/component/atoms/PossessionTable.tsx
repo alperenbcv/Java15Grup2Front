@@ -45,6 +45,9 @@ function PossessionTable(props: IPossesionTableProps) {
       }
       
       const columns: TableColumnsType<DataType> = [
+        props.role == "MANAGER"? { title: "Name", dataIndex: "possession", render: (possession: IPossession)=> possession.employeeName}:{},
+        props.role == "MANAGER"? { title: "E-mail", dataIndex: "possession", render: (possession: IPossession)=> possession.employeeMail}:{},
+
         {
             title: "Title",
             dataIndex: 'possession',
@@ -61,7 +64,7 @@ function PossessionTable(props: IPossesionTableProps) {
               title: 'Return Date',
               dataIndex: 'possession',
               sorter: (a, b) => a.possession.returnDate - b.possession.returnDate,
-              render: (possession: IPossession)=> new Date(possession.returnDate).toLocaleDateString()
+              render: (possession: IPossession)=> possession.returnDate?new Date(possession.returnDate).toLocaleDateString():<hr className='w-50' />
           },
           {
               title: 'Description',
@@ -90,6 +93,8 @@ function PossessionTable(props: IPossesionTableProps) {
             ],
             onFilter: (value, record)=> record.possession.confirmationState.startsWith(value as string) 
         },
+        props.role == "EMPLOYEE"
+        ?
         {
             title: 'Actions',
             dataIndex: "possession",
@@ -111,6 +116,8 @@ function PossessionTable(props: IPossesionTableProps) {
                 </Space>
               ): <></>
         }
+        :
+        {}
       ];
       
       

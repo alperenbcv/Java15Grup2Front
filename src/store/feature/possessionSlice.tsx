@@ -19,9 +19,7 @@ const initialPossessionSlice: IPossessionSlice = {
         id: "",
         title: "",
         description: "",
-        personnelId: "",
         companyId: "",
-        managerId: "",
         lendingDate: 0,
         returnDate: 0,
         confirmationState: ""
