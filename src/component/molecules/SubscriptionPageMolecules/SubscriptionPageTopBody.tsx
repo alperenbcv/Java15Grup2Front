@@ -7,7 +7,7 @@ function SubscriptionPageTopBody() {
   return (
     <>
      <div className="col-8 top-left-body">
-            <h2 className='top-left-header'>Try our demo for free!</h2>
+            <h2 className='top-left-header d-flex justify-content-center'>Try our demo for free!</h2>
             <div className="row top-left-row">
             <span className='top-left-text-1'>Look first at how platform are performing.</span>
             </div>
@@ -16,7 +16,7 @@ function SubscriptionPageTopBody() {
             </div>
      </div>
      <div className="col-4 top-right-body">
-        <div className="row top-right-row">
+        <div className="row top-right-row d-flex justify-content-center">
         <span className='dolar-sign'>$</span> <span className='price'>0</span>
         </div>
         <div className="row top-right-row">
