@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import LeftSideBar from '../../component/organisms/LeftSideBar';
 import DashboardPageTopBar from '../../component/molecules/DashboardMolecules/DashboardPageTopBar';
-import { Button, Space, Table } from 'antd';
+import { Button, Space, Table, Tag } from 'antd';
 import Column from 'antd/es/table/Column';
 import { MyDispatch, MyUseSelector } from '../../store';
 import { useDispatch } from 'react-redux';
@@ -90,7 +90,14 @@ function ManageCompanies() {
             }
             ]} onFilter={ (value, record) => record.industry.startsWith(value as string)}
             filterSearch={true} />
-            <Column title="Register State" dataIndex="registerState" key="registerState" filters={[
+            <Column render={(registerState)=><Tag color={registerState == "ACCEPTED"? 'green'
+              :
+              registerState == "REJECTED"? 'red'
+              :
+              registerState == "PENDING"? 'yellow'
+              :
+              'volcano'
+            } >{registerState}</Tag>}  title="Register State" dataIndex="registerState" key="registerState" filters={[
                 {
                     text: "ACCEPTED",
                     value: "ACCEPTED"
@@ -111,7 +118,7 @@ function ManageCompanies() {
         <Space size="middle">
          <Button onClick={(evt)=> manageState(record.id, "ACCEPTED")}  type='primary'>Accept</Button>
          <Button onClick={(evt)=> manageState(record.id, "REJECTED")}type='primary' danger>Reject</Button>
-        </Space> :<hr/>
+        </Space> :<hr className='w-50' />
       )}
     />
             </Table>
